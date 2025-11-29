@@ -1,1 +1,15 @@
-<p>login works!</p>
+<h1>Login</h1>
+
+<div>
+  <label>Username:</label>
+  <input [(ngModel)]="username"/>
+</div>
+
+<div>
+  <label>Password:</label>
+  <input type ="password" [(ngModel)]="password"/>
+</div>
+
+<button (click)="login()">Log In</button>
+
+<p style="color: red;">{{errorMessage}}</p>
