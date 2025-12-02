@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { Auth } from '../auth';
 
 
 @Component({
@@ -15,7 +16,11 @@ export class Login {
   password: string = '';
   errorMessage: string = '';
 
-  constructor(private http: HttpClient, private router: Router){}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private auth: Auth
+  ){}
 
   login(){
     const body = {
@@ -25,15 +30,25 @@ export class Login {
 
     this.http.post('http://localhost:8081/users/login',body)
     .subscribe({
-      next: (response: any) => {
-        console.log("Success");
-        alert("Success")
-        localStorage.setItem('token',response.token); //Store token
-        /*this.router.navigate(['/dashboard']);*/
+      next: (data: any) => {
+        this.auth.saveToken(data.token);
+        console.log("Saved token: ", data.token);
+
+        this.testProtectedEndpoint();
       },
       error: () => {
-        this.errorMessage = 'Invalid username or password.';
+        console.log("Invalid username or password.");
       }
+    });
+  }
+
+  testProtectedEndpoint(){
+    const token = this.auth.getToken;
+    const headers = {'Authorization':'Bearer ${token}'};
+
+    this.http.get("http://localhost:8081/teachers/courses-teacher/1",{ headers }).subscribe({
+      next: (data) => console.log("Protected data:", data),
+      error: (err) => console.log("Unauthorized:",err)
     });
   }
 }
