@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -15,9 +15,10 @@ export class Login {
   username: string = '';
   password: string = '';
   errorMessage: string = '';
+  private http = inject(HttpClient);
 
   constructor(
-    private http: HttpClient,
+    //private http: HttpClient,
     private router: Router,
     private auth: Auth
   ){}
@@ -36,17 +37,18 @@ export class Login {
 
         this.testProtectedEndpoint();
       },
-      error: () => {
+      error: (e) => {
+        console.log(e);
         console.log("Invalid username or password.");
       }
     });
   }
 
   testProtectedEndpoint(){
-    const token = this.auth.getToken;
-    const headers = {'Authorization':'Bearer ${token}'};
+    const token = this.auth.getToken();
+    const headers = {'Authorization':`Bearer ${token}`};
 
-    this.http.get("http://localhost:8081/teachers/courses-teacher/1",{ headers }).subscribe({
+    this.http.get("http://localhost:8081/teachers/all",{ headers }).subscribe({
       next: (data) => console.log("Protected data:", data),
       error: (err) => console.log("Unauthorized:",err)
     });
