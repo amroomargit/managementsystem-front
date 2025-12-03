@@ -16,12 +16,9 @@ export class Login {
   password: string = '';
   errorMessage: string = '';
   private http = inject(HttpClient);
+  private auth = inject(Auth)
+  private router = inject(Router)
 
-  constructor(
-    //private http: HttpClient,
-    private router: Router,
-    private auth: Auth
-  ){}
 
   login(){
     const body = {
@@ -33,24 +30,22 @@ export class Login {
     .subscribe({
       next: (data: any) => {
         this.auth.saveToken(data.token);
+        this.auth.setAuthenticatedUser(true);
+        this.auth.setFirstName(data.firstName);
+        this.auth.setLastName(data.lastName)
+        this.auth.setRole(data.role);
+
         console.log("Saved token: ", data.token);
 
-        this.testProtectedEndpoint();
+        console.log(this.auth.getAuthenticatedUser(),
+        this.auth.getFirstName(),
+        this.auth.getLastName(),
+        this.auth.getRole());
       },
       error: (e) => {
         console.log(e);
         console.log("Invalid username or password.");
       }
-    });
-  }
-
-  testProtectedEndpoint(){
-    const token = this.auth.getToken();
-    const headers = {'Authorization':`Bearer ${token}`};
-
-    this.http.get("http://localhost:8081/teachers/all",{ headers }).subscribe({
-      next: (data) => console.log("Protected data:", data),
-      error: (err) => console.log("Unauthorized:",err)
     });
   }
 }

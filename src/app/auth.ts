@@ -5,7 +5,10 @@ import { Injectable } from '@angular/core';
 })
 export class Auth {
   private token: string | null = null; //When we get tokens put them here
-  private authenticatedUser: boolean = false; //Variable holding whether user was authenticated or not (in case of a page reload where everything is lost to avoid logging in again)
+  private authenticatedUser: boolean = false; //Is user authenticated? (in case of a page reload where everything is lost to avoid logging in again)
+  private firstName: string | null = null;
+  private lastName: string | null = null;
+  private role: string | null = null;
 
 
   saveToken(token: string){
@@ -28,7 +31,28 @@ export class Auth {
     return this.authenticatedUser;
   }
 
-  setFirstname(){
+  setFirstName(firstName:string){
+    this.firstName = firstName;
+  }
+
+  getFirstName(): string | null{
+    return this.firstName;
+  }
+
+  setLastName(lastName:string){
+    this.lastName = lastName;
+  }
+
+  getLastName(): string | null{
+    return this.lastName;
+  }
+
+  setRole(role:string){
+    this.role = role;
+  }
+
+  getRole(): string | null{
+    return this.role;
   }
 
 }
