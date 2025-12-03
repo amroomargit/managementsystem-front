@@ -26,21 +26,21 @@ export class Login {
       password: this.password
     };
 
-    this.http.post('http://localhost:8081/users/login',body)
+    this.http.post<any>('http://localhost:8081/users/login',body)
     .subscribe({
       next: (data: any) => {
         this.auth.saveToken(data.token);
         this.auth.setAuthenticatedUser(true);
-        this.auth.setFirstName(data.firstName);
-        this.auth.setLastName(data.lastName)
-        this.auth.setRole(data.role);
+        this.auth.saveUser({
+          firstName:data.firstName,
+          lastName:data.lastName,
+          role:data.role
+        });
 
         console.log("Saved token: ", data.token);
 
         console.log(this.auth.getAuthenticatedUser(),
-        this.auth.getFirstName(),
-        this.auth.getLastName(),
-        this.auth.getRole());
+        this.auth.getUser)
       },
       error: (e) => {
         console.log(e);

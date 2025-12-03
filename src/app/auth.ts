@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { UserDTO } from './models/user-dto'; 
 
 @Injectable({
   providedIn: 'root',
@@ -6,10 +7,7 @@ import { Injectable } from '@angular/core';
 export class Auth {
   private token: string | null = null; //When we get tokens put them here
   private authenticatedUser: boolean = false; //Is user authenticated? (in case of a page reload where everything is lost to avoid logging in again)
-  private firstName: string | null = null;
-  private lastName: string | null = null;
-  private role: string | null = null;
-
+  private user: UserDTO | null = null;
 
   saveToken(token: string){
     localStorage.setItem('jwt',token);
@@ -31,28 +29,21 @@ export class Auth {
     return this.authenticatedUser;
   }
 
-  setFirstName(firstName:string){
-    this.firstName = firstName;
+  saveUser(user:UserDTO){
+    this.user = user;
+    localStorage.setItem('user',JSON.stringify(user));
   }
 
-  getFirstName(): string | null{
-    return this.firstName;
+  getUser(): UserDTO | null{
+    if (this.user) return this.user;
+
+    const stored = localStorage.getItem('user');
+    return stored ? JSON.parse(stored):null;
   }
 
-  setLastName(lastName:string){
-    this.lastName = lastName;
-  }
-
-  getLastName(): string | null{
-    return this.lastName;
-  }
-
-  setRole(role:string){
-    this.role = role;
-  }
-
-  getRole(): string | null{
-    return this.role;
+  clearUser(){
+    this.user = null;
+    localStorage.removeItem('user');
   }
 
 }
