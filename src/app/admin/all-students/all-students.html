@@ -1,1 +1,12 @@
-<p>all-students works!</p>
+<p>All Students</p>
+
+<div *ngIf = "students.length > 0; else noData">
+  <div *ngFor = "let s of students; let i = index" class="student-card">
+    <h3>{{i+1}}. {{s.firstName}} {{s.lastName}}</h3>
+    <p><strong>ID:</strong>{{s.id}}</p>
+  </div>
+</div>
+
+<ng-template #noData>
+  <p>No students found in database</p>
+</ng-template>

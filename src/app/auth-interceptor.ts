@@ -4,7 +4,7 @@ import { inject } from '@angular/core';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const auth = inject(Auth);
-  const token = auth.getToken;
+  const token = auth.getToken();
 
   //Skip login request because there is no token when logging in, the token comes after we log in
   if(req.url.includes('/users/login')){

@@ -11,15 +11,15 @@ export class Auth {
   private user: UserDTO | null = null;
 
   saveToken(token: string){
-    localStorage.setItem('jwt',token);
+    sessionStorage.setItem('jwt',token);
   }
 
   getToken(): string | null {
-    return localStorage.getItem('jwt');
+    return sessionStorage.getItem('jwt');
   }
 
   clearToken(): void {
-    localStorage.removeItem('jwt');
+    sessionStorage.removeItem('jwt');
   }
 
   setAuthenticatedUser(authenticatedUser : boolean){
@@ -38,22 +38,30 @@ export class Auth {
     this.role = role;
   }
 
+  logout(){
+    sessionStorage.removeItem('jwt');
+    sessionStorage.removeItem('role');
+    sessionStorage.removeItem('firstName');
+    sessionStorage.removeItem('lastName');
+    sessionStorage.removeItem('user');
+    this.setAuthenticatedUser(false);
+  }
 
   saveUser(user:UserDTO){
     this.user = user;
-    localStorage.setItem('user',JSON.stringify(user));
+    sessionStorage.setItem('user',JSON.stringify(user));
   }
 
   getUser(): UserDTO | null{
     if (this.user) return this.user;
 
-    const stored = localStorage.getItem('user');
+    const stored = sessionStorage.getItem('user');
     return stored ? JSON.parse(stored):null;
   }
 
   clearUser(){
     this.user = null;
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
   }
 
 }

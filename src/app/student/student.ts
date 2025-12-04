@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterLinkWithHref } from '@angular/router';
+import { inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { Auth } from '../auth';
 
 @Component({
   selector: 'app-student',
@@ -7,6 +10,13 @@ import { RouterOutlet, RouterLinkWithHref } from '@angular/router';
   templateUrl: './student.html',
   styleUrl: './student.css',
 })
-export class Student {
 
+export class Student {
+  auth = inject(Auth);
+  router = inject(Router);
+
+  signOut(){
+    this.auth.logout();
+    this.router.navigate(['/login'])
+  }
 }

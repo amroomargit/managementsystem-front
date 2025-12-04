@@ -42,6 +42,7 @@ export class Login {
 
         console.log(this.auth.getAuthenticatedUser(), this.auth.getUser());
 
+        //Navigate after clicking login button
         if(data.role === 'ROLE_ADMIN'){
           this.router.navigate(['/admin']);
         }
@@ -51,8 +52,6 @@ export class Login {
         else if (data.role === 'ROLE_STUDENT'){
           this.router.navigate(['/student'])
         }
-
-        //use router.navigate after login button
 
       },
       error: (e) => {
