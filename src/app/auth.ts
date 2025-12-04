@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserDTO } from './models/user-dto'; 
+import { UserDTO } from './models/user-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -7,6 +7,7 @@ import { UserDTO } from './models/user-dto';
 export class Auth {
   private token: string | null = null; //When we get tokens put them here
   private authenticatedUser: boolean = false; //Is user authenticated? (in case of a page reload where everything is lost to avoid logging in again)
+  private role: string | null = null;
   private user: UserDTO | null = null;
 
   saveToken(token: string){
@@ -28,6 +29,15 @@ export class Auth {
   getAuthenticatedUser(): boolean{
     return this.authenticatedUser;
   }
+
+  getRole(): string | null{
+    return this.role;
+  }
+
+  setRole(role : string){
+    this.role = role;
+  }
+
 
   saveUser(user:UserDTO){
     this.user = user;

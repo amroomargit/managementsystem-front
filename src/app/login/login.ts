@@ -31,6 +31,7 @@ export class Login {
       next: (data: any) => {
         this.auth.saveToken(data.token);
         this.auth.setAuthenticatedUser(true);
+        this.auth.setRole(data.role);
         this.auth.saveUser({
           firstName:data.firstName,
           lastName:data.lastName,
@@ -39,12 +40,23 @@ export class Login {
 
         console.log("Saved token: ", data.token);
 
-        console.log(this.auth.getAuthenticatedUser(),
-        this.auth.getUser)
+        console.log(this.auth.getAuthenticatedUser(), this.auth.getUser());
+
+        if(data.role === 'ROLE_ADMIN'){
+          this.router.navigate(['/admin']);
+        }
+        else if (data.role === 'ROLE_TEACHER'){
+          this.router.navigate(['/teacher']);
+        }
+        else if (data.role === 'ROLE_STUDENT'){
+          this.router.navigate(['/student'])
+        }
+
+        //use router.navigate after login button
+
       },
       error: (e) => {
         console.log(e);
-        console.log("Invalid username or password.");
       }
     });
   }
