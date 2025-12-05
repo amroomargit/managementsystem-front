@@ -4,4 +4,9 @@
 <a routerLink="all-students">All Students</a>
 |
 <button (click) = signOut()>Sign-Out</button>
-<router-outlet> <!-- for router-outlet to work, it has to be imported into admin.ts -->
+|
+<!-- mat-raised-button color="primary" is just the Angular material + stylization choice
+ "(click)="openPopup()" is what triggers the openPopup method in admin.ts-->
+<button mat-raised-button color="primary" (click)="openPopup()"> Show Popup </button>
+
+<router-outlet></router-outlet> <!-- for router-outlet to work, it has to be imported into admin.ts -->

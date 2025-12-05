@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>popup works!</h2> <!-- Displays the title of the popup-->
+
+<mat-dialog-content>{{data.message}}</mat-dialog-content> <!-- Displays the message assigned to the data variable in admin.ts-->
+
+<!-- mat-dialog-actions is just a section that contains the buttons of the dialog, cookie cutter template for dialogs
+ pretty much-->
+<mat-dialog-actions>
+  <!-- mat-button is material styling, mat-dialog-close closes the dialog after the button is clicked, "ok" gets sent back to the parent-->
+  <button mat-button mat-dialog-close="ok">Ok</button>
+  <button mat-button mat-dialog-close="cancel">Cancel</button>
+</mat-dialog-actions>

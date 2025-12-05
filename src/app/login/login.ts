@@ -16,8 +16,8 @@ export class Login {
   password: string = '';
   errorMessage: string = '';
   private http = inject(HttpClient);
-  private auth = inject(Auth)
-  private router = inject(Router)
+  private auth = inject(Auth);
+  private router = inject(Router);
 
 
   login(){

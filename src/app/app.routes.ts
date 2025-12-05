@@ -18,25 +18,16 @@ export const routes: Routes = [{
   {path:'admin', //When in the browser, someone types http://localhost:4200/admin, that will redirect them to the routing table in admin.route.ts
     loadChildren:() =>
     import('./admin/admin.routes').then(r => r.routes),
-
     //add the below two lines for guard functionality
-    canActivate:[adminGuard],
-    loadComponent: () =>
-      import('./admin/admin').then(m => m.Admin),
+    canActivate:[adminGuard]
   },
   {path:'teacher',
     loadChildren:() =>
       import('./teacher/teacher.routes').then(r => r.routes),
-
-    canActivate:[teacherGuard],
-    loadComponent: () =>
-      import('./teacher/teacher').then(m => m.Teacher),
+    canActivate:[teacherGuard]
   },
   {path:'student',
     loadChildren:() =>
       import('./student/student.routes').then(r => r.routes),
-
-    canActivate:[studentGuard],
-    loadComponent: () =>
-      import('./student/student').then(m => m.Student),
+    canActivate:[studentGuard]
   }];
