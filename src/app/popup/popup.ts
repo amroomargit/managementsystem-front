@@ -17,10 +17,4 @@ export class Popup {
   this, we can close the popup, or return values back to whoever opened it*/
   dialogRef = inject(MatDialogRef<Popup>);
 
-  /* Tells Angular to close the dialog (the popup) and to return the value "ok" back to whichever component opened it
-  (admin.ts in this case). In the current example we don't do anything with it, but you could code further based on
-  the result, i.e. activate code based on whether they select "ok" or "cancel" to a certain thing. */
-  close(){
-    this.dialogRef.close("ok");
-  }
 }

@@ -27,7 +27,8 @@ export class Admin {
     //this.dialog.open calls Angular's Material MatDialog service creates the popup window and shows it on screen
     this.dialog.open(Popup,{
       width: '300px', //popup box size
-      data: {message: "Are you sure?"} //This is the data variable that is sent to popup.html's mat-dialog-content
+      data: {popupTitle: "Popup Example",
+        popupMessage: "Are you sure?"} //This is the data variable that is sent to popup.html's mat-dialog-content
     });
   }
 }

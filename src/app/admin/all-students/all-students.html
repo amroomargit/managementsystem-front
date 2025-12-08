@@ -1,9 +1,10 @@
 <p>All Students</p>
 
-<div *ngIf = "students.length > 0; else noData">
-  <div *ngFor = "let s of students; let i = index" class="student-card">
-    <h3>{{i+1}}. {{s.firstName}} {{s.lastName}}</h3>
+<div *ngIf = "students != null">
+  <div *ngFor = "let s of students | async">
+    <h3>{{s.firstName}} {{s.lastName}}</h3>
     <p><strong>ID:</strong>{{s.id}}</p>
+    <button (click) = updateStudent(s.id)>Update</button> | <button (click) = deleteStudent(s.id)>Delete</button>
   </div>
 </div>
 
