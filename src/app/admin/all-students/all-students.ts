@@ -66,7 +66,7 @@ export class AllStudents implements OnInit{
             this.http.put(`http://localhost:8081/students/update-student-info/${studentId}`,formValues)
             .subscribe(
               response => console.log("Updated!",response),
-              error => console.log(`Error: ${error}, Entered Values: ${formValues}`)
+              error => console.log(`Error: ${error}`)
             )
           }
         });
