@@ -39,42 +39,36 @@ export class AllStudents implements OnInit{
     }
 
   //If the user clicks the update button that we made in all-students.html, this method gets triggered
-  updateStudent(studentId: number){
+  updateStudent(studentId:number, firstName:string, lastName:string){
 
     //Calling popup to ask user to confirm their option
-    const dialogReference = this.confirmationPopup(studentId,"update");
+    const dialogReference2 = this.dialog.open(UpdateStudentPopup, {
+      width: '500px',
+      data:{
+        firstName: firstName,
+        lastName: lastName
+      }
+    });
 
     /*After the popup is closed (which happens when one of the two options "Yes" or "No" is selected), then
     we record the result (which is returned to us by <button mat-button mat-dialog-close=" "></button> in
     popup.html*/
-    dialogReference.afterClosed().subscribe(result => {
-      console.log("User selected: ",result); //Just printing to the console which option the user chose
+    dialogReference2.afterClosed().subscribe(formValues =>{
+      //If the form has been filled with values
+      if(formValues){
+        console.log("Updating student with: ",formValues); //Just printing to the console which option the user chose
 
-      //If the result is Yes, we...
-      if(result === "Yes"){
-        //Open another popup (update-student-popup) asking for the new info for the student to be updated
-        const dialogReference2 = this.dialog.open(UpdateStudentPopup, {
-          width: '300px'
-        });
-
-        //After the second popup has been closed...
-        dialogReference2.afterClosed().subscribe(formValues =>{
-          //If the form has been filled with values
-          if(formValues){
-            console.log("Updating student with: ",formValues);
-            //We send it to the backend endpoint as a JSON, and update the user
-            this.http.put(`http://localhost:8081/students/update-student-info/${studentId}`,formValues)
-            .subscribe(
-              response => console.log("Updated!",response),
-              error => console.log(`Error: ${error}`)
-            )
-          }
-        });
-
+        //We send it to the backend endpoint as a JSON, and update the user
+        this.http.put(`http://localhost:8081/students/update-student-info/${studentId}`,formValues)
+        .subscribe(
+          response => console.log("Updated!",response),
+          error => console.log(`Error: ${error}`)
+        )
       }
-      //If result is No, we just do nothing, and the popup closes by itself
     });
   }
+  //If result is No, we just do nothing, and the popup closes by itself
+
 
   deleteStudent(studentId: number){
     const dialogReference = this.confirmationPopup(studentId,"delete");

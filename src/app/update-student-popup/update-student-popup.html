@@ -1,9 +1,20 @@
-<h2>Please make your changes.</h2>
-<label>First Name:</label>
-<input [(ngModel)]="firstName">
+<h2 mat-dialog-title class="dialog-title">Please make your changes.</h2>
 
-<label>Last Name:</label>
-<input [(ngModel)]="lastName">
+<mat-dialog-content class = "popup-body">
 
-<button mat-button (click) = "submit()">Submit</button>
-<button mat-button (click) = "cancel()">Cancel</button>
+  <mat-form-field appearance="fill" class = "field">
+    <mat-label>First Name:</mat-label>
+    <input matInput [(ngModel)]="firstName">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class = "field">
+    <mat-label>Last Name:</mat-label>
+    <input matInput [(ngModel)]="lastName">
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+<button mat-button color = "primary" (click) = "submit()">Submit</button>
+<button mat-button color = "warn" (click) = "cancel()">Cancel</button>
+</mat-dialog-actions>

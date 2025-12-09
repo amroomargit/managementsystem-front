@@ -1,10 +1,20 @@
 import { Component } from '@angular/core';
-import { MatDialogClose, MatDialogContent, MatDialogActions, MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { MatDialogClose, MatDialogContent, MatDialogActions, MAT_DIALOG_DATA, MatDialogRef,MatDialogTitle } from "@angular/material/dialog";
 import { inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-popup',
-  imports: [MatDialogClose, MatDialogContent, MatDialogActions],
+  imports: [
+    MatDialogContent,
+    MatDialogActions,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDialogTitle,
+    MatDialogClose],
   templateUrl: './popup.html',
   styleUrl: './popup.css',
 })
@@ -17,4 +27,5 @@ export class Popup {
   this, we can close the popup, or return values back to whoever opened it*/
   dialogRef = inject(MatDialogRef<Popup>);
 
+  //MAKE SURE YOU INJECT THESE TWO FOR EVERY POPUP
 }
