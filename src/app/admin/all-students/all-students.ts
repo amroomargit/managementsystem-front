@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { Popup } from '../../popup/popup';
 import { UpdateStudentPopup } from '../../update-student-popup/update-student-popup';
+import { InsertStudentPopup } from '../../insert-student-popup/insert-student-popup';
 
 @Component({
   selector: 'app-all-students',
@@ -41,32 +42,23 @@ export class AllStudents implements OnInit{
   //If the user clicks the update button that we made in all-students.html, this method gets triggered
   updateStudent(studentId:number, firstName:string, lastName:string){
 
-    //Calling popup to ask user to confirm their option
+    //Calling popup to ask user to confirm their option, among other things (read the notes left over there)
     const dialogReference2 = this.dialog.open(UpdateStudentPopup, {
       width: '500px',
       data:{
+        id: studentId,
         firstName: firstName,
         lastName: lastName
       }
     });
 
-    /*After the popup is closed (which happens when one of the two options "Yes" or "No" is selected), then
-    we record the result (which is returned to us by <button mat-button mat-dialog-close=" "></button> in
-    popup.html*/
+    /* After the popup is closed, we come back here to reload table by calling this.loadAllStudents method
+    again to get the updated list */
     dialogReference2.afterClosed().subscribe(formValues =>{
-      //If the form has been filled with values
-      if(formValues){
-        console.log("Updating student with: ",formValues); //Just printing to the console which option the user chose
-
-        //We send it to the backend endpoint as a JSON, and update the user
-        this.http.put(`http://localhost:8081/students/update-student-info/${studentId}`,formValues)
-        .subscribe(
-          response => console.log("Updated!",response),
-          error => console.log(`Error: ${error}`)
-        )
-      }
+      this.loadAllStudents();
     });
   }
+
   //If result is No, we just do nothing, and the popup closes by itself
 
 
@@ -77,9 +69,22 @@ export class AllStudents implements OnInit{
       console.log("User selected: ",result);
 
       if(result === "Yes"){
-        this.http.delete(`http://localhost:8081/students/delete-student/${studentId}`).subscribe(response =>
+        this.http.delete(`http://localhost:8081/students/delete-student/${studentId}`,
+          { responseType: 'text' }) //include this to return text
+          .subscribe(response =>
           console.log("Deleted: ",response));
       }
     });
+  }
+
+  insertStudent(){
+    const dialogRef = this.dialog.open(InsertStudentPopup,{
+      width: '500px',
+      data:{
+
+      }});
+      dialogRef.afterClosed().subscribe(result =>{
+        this.loadAllStudents();
+      });
   }
 }

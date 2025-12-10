@@ -1,0 +1,29 @@
+.popup-body{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  padding-top:8px;
+}
+
+.field{
+  width:100%;
+}
+
+.dialog-title{
+  padding-left:16px;
+  padding-top:8px;
+  display: block;
+}
+
+mat-form-field{
+  background-color:white;
+  border-radius:6px;
+}
+
+mat-dialog-content{
+  min-width:280px;
+}
+
+mat-dialog-actions{
+  margin-top:12px;
+}
