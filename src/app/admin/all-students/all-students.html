@@ -1,6 +1,6 @@
 <p>All Students</p>
 
-<table *ngIf = "students != null">
+<table>
   <tr>
     <th>First Name</th>
     <th>Last Name</th>
@@ -8,7 +8,7 @@
     <th>Actions</th>
   </tr>
 
-  <tr *ngFor = "let s of students | async">
+  <tr *ngFor = "let s of studentService.studentChange()">
     <td>{{s.firstName}}</td>
     <td>{{s.lastName}}</td>
     <td>{{s.id}}</td>

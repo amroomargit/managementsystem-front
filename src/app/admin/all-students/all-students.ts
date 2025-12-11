@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, effect, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { StudentDTO } from '../../models/student-dto';
 import { inject } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, timeout } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { Popup } from '../../popup/popup';
 import { UpdateStudentPopup } from '../../update-student-popup/update-student-popup';
 import { InsertStudentPopup } from '../../insert-student-popup/insert-student-popup';
+import { StudentService } from '../../student-service';
 
 @Component({
   selector: 'app-all-students',
@@ -19,6 +20,7 @@ import { InsertStudentPopup } from '../../insert-student-popup/insert-student-po
 export class AllStudents implements OnInit{
   private http = inject(HttpClient); //we use http to connect to the backend endpoints (like with postman)
   private dialog = inject(MatDialog);
+  public studentService = inject(StudentService);
 
   public students: Observable<StudentDTO[]> | null = null;
 
@@ -27,7 +29,12 @@ export class AllStudents implements OnInit{
   }
 
   loadAllStudents(){
-    this.students = this.http.get<StudentDTO[]>('http://localhost:8081/students/all');
+    this.http.get<StudentDTO[]>('http://localhost:8081/students/all').subscribe({
+      next:(data) => {
+        this.studentService.studentChange.set(data);
+        console.log(data);
+      }
+    });
   }
 
   //Method that triggers the popup (depends on popup.html and popup.ts that we created before)
@@ -52,11 +59,10 @@ export class AllStudents implements OnInit{
       }
     });
 
-    /* After the popup is closed, we come back here to reload table by calling this.loadAllStudents method
-    again to get the updated list */
-    dialogReference2.afterClosed().subscribe(formValues =>{
-      this.loadAllStudents();
-    });
+    dialogReference2.afterClosed().subscribe(result => {
+  this.loadAllStudents();
+});
+
   }
 
   //If result is No, we just do nothing, and the popup closes by itself

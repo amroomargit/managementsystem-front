@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClient } from '@angular/common/http';
+import { StudentService } from '../student-service';
 
 @Component({
   selector: 'app-update-student-popup',
@@ -22,6 +23,7 @@ export class UpdateStudentPopup {
   data = inject(MAT_DIALOG_DATA); //Make sure you always inject these two for any popup
   newDialogReference = inject(MatDialogRef<UpdateStudentPopup>); //Make sure you always inject these two for any popup
   http = inject(HttpClient);
+  studentService = inject(StudentService);
 
   firstName:string = this.data.firstName;
   lastName:string = this.data.lastName;
@@ -45,7 +47,10 @@ export class UpdateStudentPopup {
     .subscribe(
       response =>{
         console.log("Updated!",response);
-        this.newDialogReference.close({firstName: this.firstName, lastName: this.lastName})
+        this.newDialogReference.close({firstName: this.firstName, lastName: this.lastName});
+        setTimeout(()=>{
+          //this.studentService.studentChange.set(true);
+        });
       },
       error => {
         console.log(`Error: ${error}`);
