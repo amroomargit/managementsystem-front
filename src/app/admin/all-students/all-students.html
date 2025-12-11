@@ -8,7 +8,7 @@
     <th>Actions</th>
   </tr>
 
-  <tr *ngFor = "let s of studentService.studentChange()">
+  <tr *ngFor = "let s of studentService.students()">
     <td>{{s.firstName}}</td>
     <td>{{s.lastName}}</td>
     <td>{{s.id}}</td>

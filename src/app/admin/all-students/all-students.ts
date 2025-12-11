@@ -25,20 +25,10 @@ export class AllStudents implements OnInit{
   public students: Observable<StudentDTO[]> | null = null;
 
   ngOnInit(){
-    this.loadAllStudents();
+    this.studentService.loadAllStudents();
   }
 
-  loadAllStudents(){
-    this.http.get<StudentDTO[]>('http://localhost:8081/students/all') //Sends HTTP get request to backend, expects a list of StudentDTOs to be returned (in .ts there is no List<>, we use array [])
-    .subscribe({ //When backend responds, run the function below
-      next:(data) => { //data is the array of students we recieved from the backend
-        this.studentService.studentChange.set(data); //We are calling .set() on a WritableSignal (named studentChange, imported from student-service.ts), and passing through our data (the array of students), which updates its value
-        console.log(data); //This is just returning the array to the console so we can check that it actually did pass through
-      }
-      /*Doing it this way solved the ExpressionChangedAfterItHasBeenCheckedError because before we were using
-      Observable + async pipe + late update inside lifecycle, but now we are using Signals + .set() from HTTP response*/
-    });
-  }
+
 
   //If the user clicks the update button that we made in all-students.html, this method gets triggered
   updateStudent(studentId:number, firstName:string, lastName:string){
@@ -54,10 +44,19 @@ export class AllStudents implements OnInit{
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.loadAllStudents();
+      this.studentService.loadAllStudents();
     });
   }
 
+  insertStudent(){
+    const dialogRef = this.dialog.open(InsertStudentPopup,{
+      width: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe(result =>{
+      this.studentService.loadAllStudents();
+    });
+  }
 
   /*The logic for this method and it's popup are just coded a different way but are the same idea (except)
   for the fact that it's just a simple yes or no instead of a popup that takes fields*/
@@ -78,17 +77,9 @@ export class AllStudents implements OnInit{
           .subscribe(response =>
             console.log("Deleted: ",response));
       }
-      this.loadAllStudents();
+      this.studentService.loadAllStudents();
     });
   }
 
-  insertStudent(){
-    const dialogRef = this.dialog.open(InsertStudentPopup,{
-      width: '500px'
-    });
 
-    dialogRef.afterClosed().subscribe(result =>{
-      this.loadAllStudents();
-    });
-  }
 }
