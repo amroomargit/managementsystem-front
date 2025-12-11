@@ -6,5 +6,5 @@ import { StudentDTO } from './models/student-dto';
   providedIn: 'root',
 })
 export class StudentService {
-  public studentChange:WritableSignal<StudentDTO[]> = signal([]);
+  public studentChange:WritableSignal<StudentDTO[]> = signal([]); //Variable called studentChange, of type WritableSignal, which only accepts an array of StudentDTOs
 }

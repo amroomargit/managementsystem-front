@@ -41,8 +41,11 @@ export class InsertStudentPopup {
     this.http.post('http://localhost:8081/students/insert-student',formValues).subscribe(
       response => {
         console.log("Student Added.",response);
-        this.newDialogReference.close({username:this.username, password:this.password,
-          firstName: this.firstName, lastName:this.lastName})
+        this.newDialogReference.close({
+          username:this.username,
+          password:this.password,
+          firstName: this.firstName,
+          lastName:this.lastName})
       },
       error => {
         console.log(`Error: ${error}`);
