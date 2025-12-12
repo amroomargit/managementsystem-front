@@ -1,0 +1,29 @@
+.popup-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 8px;
+}
+
+.field {
+  width: 100%;
+}
+
+.dialog-title {
+  padding-left: 16px;
+  padding-top: 8px;
+  display: block;
+}
+
+mat-dialog-content {
+  min-width: 320px;
+}
+
+mat-dialog-actions {
+  margin-top: 12px;
+}
+
+.snackbar-error {
+  background-color: #c62828 !important;
+  color: white !important;
+}

@@ -1,6 +1,6 @@
 import { inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
-import { Student } from './student/student';
 import { StudentDTO } from './models/student-dto';
+import { CourseDTO } from './models/course-dto';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class StudentService {
   public students:WritableSignal<StudentDTO[]> = signal([]); //Variable called studentChange, of type WritableSignal, which only accepts an array of StudentDTOs
+  public courses:WritableSignal<CourseDTO[]> = signal([]);
 
   private http = inject(HttpClient);
 
@@ -20,6 +21,15 @@ export class StudentService {
         }
         /*Doing it this way solved the ExpressionChangedAfterItHasBeenCheckedError because before we were using
         Observable + async pipe + late update inside lifecycle, but now we are using Signals + .set() from HTTP response*/
+      });
+    }
+
+    loadAllCourses(){
+      this.http.get<CourseDTO[]>('http://localhost:8081/courses/all')
+      .subscribe({
+        next:(data) => {
+          this.courses.set(data);
+        }
       });
     }
 }

@@ -53,7 +53,7 @@ export class UpdateStudentPopup {
       error => {
         console.log(`Error: ${error}`);
       }
-    )
+    );
   }
 
 

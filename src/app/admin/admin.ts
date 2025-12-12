@@ -19,6 +19,5 @@ export class Admin {
 
   signOut(){
     this.auth.logout();
-    this.router.navigate(['/login']);
   }
 }
