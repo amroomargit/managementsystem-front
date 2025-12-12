@@ -49,7 +49,11 @@ export class EnrollInCoursePopup {
     },
       (error) => {
       console.log("Error: ",error);
-      const msg = error.error?.message || "An error occured";
+
+      const msg = error.error?.message || "An error occured"; //This is the message that will be displayed in snackbar
+
+      /*Opens little notification at bottom of screen that displays the text included in msg variable defined above, and a button that
+      says "Close"*/
       this.snackbar.open(msg, "Close", {
         duration:4000,
         panelClass:['snackbar-error']
