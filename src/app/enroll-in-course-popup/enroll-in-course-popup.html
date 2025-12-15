@@ -1,4 +1,4 @@
-<h2 mat-dialog-title class="dialog-title">Select a Course To Enroll In</h2>
+<h2 mat-dialog-title class="dialog-title">{{data.title}}</h2>
 
 <mat-dialog-content class = "popup-body">
 
@@ -6,16 +6,16 @@
 
     <mat-label>Courses</mat-label>
 
-      <mat-select [(ngModel)] = "selectedCourseId">
-        <!--c.id and c.name are from CourseDTO who is referenced in student-service.ts who contacts the backend endpoint to load all students-->
-        <mat-option *ngFor="let c of studentService.courses()" [value]="c.id">{{c.name}}</mat-option>
-      </mat-select>
+    <mat-select [(ngModel)] = "selectedCourseId">
+      <!--c.id and c.name are from CourseDTO who is referenced in student-service.ts who contacts the backend endpoint to load all students-->
+      <mat-option *ngFor="let c of studentService.courses()" [value]="c.id">{{c.name}}</mat-option>
+    </mat-select>
 
-    </mat-form-field>
+  </mat-form-field>
 
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-button color = "primary" (click) = "enroll()">Enroll</button>
+  <button mat-button color = "primary" (click) = "confirm()">Submit</button> <!--confirm() calls a check to see which of enroll() or unenroll() we are calling since they share the same popup component-->
   <button mat-button color = "warn" (click) = "cancel()">Cancel</button>
 </mat-dialog-actions>

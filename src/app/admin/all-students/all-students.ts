@@ -12,6 +12,7 @@ import { InsertStudentPopup } from '../../insert-student-popup/insert-student-po
 import { StudentService } from '../../student-service';
 import { EnrollInCoursePopup } from '../../enroll-in-course-popup/enroll-in-course-popup';
 
+
 @Component({
   selector: 'app-all-students',
   imports: [NgIf,NgFor,CommonModule],
@@ -62,12 +63,26 @@ export class AllStudents implements OnInit{
     const dialogRef = this.dialog.open(EnrollInCoursePopup,{
       width: '500px',
       data:{
-        studentNum:studentId
+        studentNum:studentId,
+        action: "enroll",
+        title: "Select a Course to Enroll" //Since we are using the same popup, we need to tell the html which method to call betwen enroll or unenroll
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       this.studentService.loadAllStudents();
+    });
+  }
+
+  //Gonna use the same popup component as enrollInCourse, but we're gonna call the unenroll() method instead of enroll() method
+  unenrollInCourse(studentId:number){
+    const dialogRef = this.dialog.open(EnrollInCoursePopup,{
+      width: '500px',
+      data:{
+        studentNum:studentId,
+        action: "unenroll", //Since we are using the same popup, we need to tell the html which method to call betwen enroll or unenroll
+        title: "Select a Course to Unenroll"
+      }
     });
   }
 

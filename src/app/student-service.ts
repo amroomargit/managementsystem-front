@@ -32,4 +32,18 @@ export class StudentService {
         }
       });
     }
+
+    loadCoursesStudentIsEnrolledIn(studentId:number){
+      this.http.get<CourseDTO[]>(`http://localhost:8081/courses/get-a-students-courses/${studentId}`)
+      .subscribe({
+        next:(data) => {
+          this.courses.set(data);
+        }
+      });
+    }
+
+    resetCourseList(){
+      this.courses.set([]);   // clear the signal
+      }
+
 }
