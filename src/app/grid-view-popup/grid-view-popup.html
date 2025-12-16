@@ -1,0 +1,29 @@
+<h2 mat-dialog-title class = "dialog-title">{{data.title}}</h2>
+
+<mat-dialog-content class = "popup-body">
+
+  <div class = "course-grid" *ngIf="studentService.courses().length > 0">
+
+    <div class = "course-card" *ngFor="let course of studentService.courses()">
+
+      <h3 class="course-title">{{course.name}}</h3> <!--The course.name comes from the course-dto.ts file under models tab in explorer-->
+
+      <p><strong>Course ID:</strong> {{course.id}}</p>
+
+      <p><strong>Topic:</strong> {{course.topic.name}}</p>
+
+      <p><strong>Time:</strong> {{course.starttime}} - {{course.endtime}}</p>
+
+      <p><strong>Teacher:</strong> {{course.teacher.firstName}} {{course.teacher.lastName}}</p>
+
+
+    </div>
+  </div>
+
+  <p *ngIf="studentService.courses().length === 0"> No Courses Available.</p>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button color = "primary" (click) = closePopup()>Close</button>
+</mat-dialog-actions>

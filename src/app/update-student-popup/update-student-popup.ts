@@ -25,7 +25,7 @@ export class UpdateStudentPopup {
 
   firstName:string = this.data.firstName;
   lastName:string = this.data.lastName;
-  id:number = this.data.id;
+  studentId:number = this.data.studentId;
 
 
   /*Assuming the user clicks the submit button after filling out the new first and last name, then upon the
@@ -41,7 +41,7 @@ export class UpdateStudentPopup {
 
     //The reason we moved this here is to avoid racing/timing problems
     /* We send the JSON to the backend endpoint, and update the user simultaneously */
-    this.http.put(`http://localhost:8081/students/update-student-info/${this.id}`,formValues)
+    this.http.put(`http://localhost:8081/students/update-student-info/${this.studentId}`,formValues)
     .subscribe(
       response =>{
         console.log("Updated!",response);

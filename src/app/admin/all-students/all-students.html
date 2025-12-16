@@ -22,7 +22,10 @@
   </tr>
 </table>
 
-<button (click) = insertStudent()>Insert New Student</button>
+<div class = "button-column">
+  <button (click) = insertStudent()>Insert New Student</button>
+  <button (click) = viewAllCourses()>View All Courses</button>
+</div>
 
 <ng-template #noData>
   <p>No students found in database</p>

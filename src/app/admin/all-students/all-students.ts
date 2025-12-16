@@ -11,6 +11,7 @@ import { UpdateStudentPopup } from '../../update-student-popup/update-student-po
 import { InsertStudentPopup } from '../../insert-student-popup/insert-student-popup';
 import { StudentService } from '../../student-service';
 import { EnrollInCoursePopup } from '../../enroll-in-course-popup/enroll-in-course-popup';
+import { GridViewPopup } from '../../grid-view-popup/grid-view-popup';
 
 
 @Component({
@@ -38,7 +39,7 @@ export class AllStudents implements OnInit{
     const dialogRef = this.dialog.open(UpdateStudentPopup, {
       width: '600px',
       data:{
-        id: studentId,
+        studentId: studentId,
         firstName: firstName,
         lastName: lastName
       }
@@ -70,7 +71,6 @@ export class AllStudents implements OnInit{
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.studentService.loadAllStudents();
     });
   }
 
@@ -82,6 +82,18 @@ export class AllStudents implements OnInit{
         studentNum:studentId,
         action: "unenroll", //Since we are using the same popup, we need to tell the html which method to call betwen enroll or unenroll
         title: "Select a Course to Unenroll"
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
+  viewAllCourses(){
+    const dialogRef = this.dialog.open(GridViewPopup,{
+      width: '1000px',
+      data:{
+        title:"View All Courses" //Only reason we are sending data through is so we can set the title since this popup is highly reusable (it's literally just a grid that displays data)
       }
     });
   }

@@ -90,13 +90,6 @@ export class EnrollInCoursePopup {
       },
       (error) => {
         console.log("Error: ",error);
-
-        const msg = error.error?.message || "An error occured";
-
-        this.snackbar.open(msg, "Close", {
-          duration:4000,
-          panelClass:['snackbar-error']
-        });
       }
     )
   }
