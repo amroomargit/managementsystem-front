@@ -39,9 +39,10 @@ export class AllStudents implements OnInit{
     const dialogRef = this.dialog.open(UpdateStudentPopup, {
       width: '600px',
       data:{
-        studentId: studentId,
+        id: studentId,
         firstName: firstName,
-        lastName: lastName
+        lastName: lastName,
+        action: "student"
       }
     });
 

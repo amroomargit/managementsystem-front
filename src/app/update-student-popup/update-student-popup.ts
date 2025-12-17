@@ -25,23 +25,34 @@ export class UpdateStudentPopup {
 
   firstName:string = this.data.firstName;
   lastName:string = this.data.lastName;
-  studentId:number = this.data.studentId;
+  id:number = this.data.id;
 
+  //JSON object with the new names recorded, which we will be sending to the backend using the code below
+  //We write this here because we would've had to have written it in both submitStudent() and submitTeacher()
+
+
+  confirm(){
+    if(this.data.action === "student"){
+      this.submitStudent();
+    }
+    else if(this. data.action === "teacher"){
+      this.submitTeacher();
+    }
+  }
 
   /*Assuming the user clicks the submit button after filling out the new first and last name, then upon the
   dialog closing, we will set the first and last names as what they entered*/
 
-  submit(){ //Something about doing it all at once so it's synchronous and not racing to see who finishes first
+  submitStudent(){ //Something about doing it all at once so it's synchronous and not racing to see who finishes first
 
-    //JSON object with the new names recorded, which we will be sending to the backend using the code below
     const formValues = {
-      firstName: this.firstName,
-      lastName: this.lastName
-    };
+    firstName: this.firstName,
+    lastName: this.lastName
+  };
 
     //The reason we moved this here is to avoid racing/timing problems
     /* We send the JSON to the backend endpoint, and update the user simultaneously */
-    this.http.put(`http://localhost:8081/students/update-student-info/${this.studentId}`,formValues)
+    this.http.put(`http://localhost:8081/students/update-student-info/${this.id}`,formValues)
     .subscribe(
       response =>{
         console.log("Updated!",response);
@@ -54,6 +65,28 @@ export class UpdateStudentPopup {
         console.log(`Error: ${error}`);
       }
     );
+  }
+
+  submitTeacher(){
+
+    const formValues = {
+    firstName: this.firstName,
+    lastName: this.lastName
+  };
+
+     this.http.put(`http://localhost:8081/teachers/update-teacher-info/${this.id}`,formValues)
+     .subscribe(
+      response => {
+        console.log("Updated!",response);
+        this.newDialogReference.close({
+          firstName: this.firstName,
+          lastName: this.lastName
+        });
+      },
+      error => {
+        console.log(`Error: ${error}`);
+      }
+     )
   }
 
 
