@@ -42,18 +42,31 @@ export class EnrollInCoursePopup {
   //This lets us switch between the WritableSignals for courses, teachers, topics, etc. so that we can choose which one we want in the HTML with *ngFor
   //Read explanation in select-options.ts under models folder
   options = computed<selectOption[]>(() => {
-  if (this.data.action === 'topic assign') {
-    return this.teacherService.topics().map(t => ({
-      id: t.id,
-      name: t.name
-    }));
-  }
 
-  return this.studentService.courses().map(c => ({
-    id: c.id,
-    name: c.name
-  }));
-});
+    switch(this.data.action){
+      case 'teacher topic assign':
+        return this.teacherService.topics().map(t => ({
+          id: t.id,
+          name: t.name
+        }));
+
+      case 'teacher course assign':
+        return this.teacherService.courses().map(c => ({
+          id: c.id,
+          name: c.name
+        }));
+
+      case 'enroll':
+      case 'unenroll':
+        return this.studentService.courses().map(c => ({
+          id: c.id,
+          name: c.name
+        }));
+      default:
+        console.log("The switch-case in options variable in enroll-in-course-popup.ts did not work properly.");
+        return [];
+    }
+  });
 
 
 
@@ -68,15 +81,19 @@ export class EnrollInCoursePopup {
         this.studentService.loadAllCourses();
         break;
 
-        case 'unenroll':
+      case 'unenroll':
         this.studentService.loadCoursesStudentIsEnrolledIn(this.data.studentNum);
         break;
 
-        case 'topic assign':
+      case 'teacher topic assign':
         this.teacherService.loadAllTopics();
         break;
 
-        default:
+      case 'teacher course assign':
+        this.teacherService.loadAllCourses();
+        break;
+
+      default:
         console.log("The switch-case in ngOnInit() in enroll-in-course-popup.ts did not work properly.");
     }
   }
@@ -96,14 +113,24 @@ export class EnrollInCoursePopup {
       case 'unenroll':
         this.unenroll();
         break;
-      case 'topic assign':
+      case 'teacher topic assign':
         this.teacherTopicAssign();
+        break;
+      case 'teacher course assign':
+        this.teacherCourseAssign();
         break;
       default:
         console.log("The switch-case in confirm() in enroll-in-course-popup.ts did not work properly.");
     }
   }
 
+  /*Opens little notification at bottom of screen that displays the text included in msg variable defined above, and a button that says "Close"*/
+  snackbarMessage(msg:string){
+        this.snackbar.open(msg,"Close",{
+          duration:10000,
+          panelClass:['snackbar-error']
+        });
+  }
 
   enroll(){
     this.http.patch(`http://localhost:8081/students/enroll-student-in-a-course/${this.data.studentNum}/${this.selectedIdFromHTML}`,{})
@@ -114,15 +141,7 @@ export class EnrollInCoursePopup {
     },
       (error) => {
       console.log("Error: ",error);
-
-      const msg = error.error?.message || "An error occured"; //This is the message that will be displayed in snackbar
-
-      /*Opens little notification at bottom of screen that displays the text included in msg variable defined above, and a button that
-      says "Close"*/
-      this.snackbar.open(msg, "Close", {
-        duration:4000,
-        panelClass:['snackbar-error']
-      });
+      this.snackbarMessage(error.error?.message);
     }
   );
   }
@@ -149,6 +168,22 @@ export class EnrollInCoursePopup {
       },
       (error) => {
         console.log("Error: ",error);
+        this.snackbarMessage(error.error?.message);
+      }
+    );
+  }
+
+  teacherCourseAssign(){
+    this.http.post(`http://localhost:8081/teachers/assign-teacher-to-a-course/${this.data.teacherId}/${this.selectedIdFromHTML}`,{})
+    .subscribe(
+      (response) => {
+         console.log("Console log: ",response);
+         this.dialogReference.close({});
+      },
+      (error) =>
+      {
+        console.log("Error: ",error);
+        this.snackbarMessage(error.error?.message);
       }
     );
   }

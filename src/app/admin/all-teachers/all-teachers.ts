@@ -47,12 +47,25 @@ export class AllTeachers {
       width:'600px',
       data:{
         teacherId:teacherId,
-        action: "topic assign",
+        action: "teacher topic assign",
         title: "Assign a Teacher to a Topic",
         label: "Topics"
       }
     });
 
      dialogRef.afterClosed().subscribe();
+  }
+
+  assignTeacherToCourse(teacherId:number){
+    const dialogRef = this.dialog.open(EnrollInCoursePopup,{
+      width:'600px',
+      data:{
+        teacherId:teacherId,
+        action: "teacher course assign",
+        label: "Courses",
+        title: "Assign a Teacher to a Course"
+      }
+    });
+    dialogRef.afterClosed().subscribe();
   }
 }
