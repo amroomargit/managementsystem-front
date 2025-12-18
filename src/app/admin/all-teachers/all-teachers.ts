@@ -36,6 +36,10 @@ export class AllTeachers {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result=>{});
-  }
+    dialogRef.afterClosed().subscribe(result=>{
+      this.teacherService.loadAllTeachers();
+    });
+
+
+}
 }
