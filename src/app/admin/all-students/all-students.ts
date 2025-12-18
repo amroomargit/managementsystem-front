@@ -67,7 +67,8 @@ export class AllStudents implements OnInit{
       data:{
         studentNum:studentId,
         action: "enroll",
-        title: "Select a Course to Enroll" //Since we are using the same popup, we need to tell the html which method to call betwen enroll or unenroll
+        title: "Select a Course to Enroll", //Since we are using the same popup, we need to tell the html which method to call betwen enroll or unenroll
+        label:"Courses"
       }
     });
 
@@ -82,7 +83,8 @@ export class AllStudents implements OnInit{
       data:{
         studentNum:studentId,
         action: "unenroll", //Since we are using the same popup, we need to tell the html which method to call betwen enroll or unenroll
-        title: "Select a Course to Unenroll"
+        title: "Select a Course to Unenroll",
+        label:"Courses"
       }
     });
 

@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { TeacherDTO } from '../../models/teacher-dto';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { UpdateStudentPopup } from '../../update-student-popup/update-student-popup';
+import { EnrollInCoursePopup } from '../../enroll-in-course-popup/enroll-in-course-popup';
 
 @Component({
   selector: 'app-all-teachers',
@@ -39,7 +40,19 @@ export class AllTeachers {
     dialogRef.afterClosed().subscribe(result=>{
       this.teacherService.loadAllTeachers();
     });
+  }
 
+  assignTeacherToTopic(teacherId:number){
+    const dialogRef = this.dialog.open(EnrollInCoursePopup,{
+      width:'600px',
+      data:{
+        teacherId:teacherId,
+        action: "topic assign",
+        title: "Assign a Teacher to a Topic",
+        label: "Topics"
+      }
+    });
 
-}
+     dialogRef.afterClosed().subscribe();
+  }
 }

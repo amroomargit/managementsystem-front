@@ -13,6 +13,8 @@
     <td>{{t.lastName}}</td>
     <td>{{t.id}}</td>
     <td> <button (click) = updateTeacher(t.id,t.firstName,t.lastName)>Update</button></td>
+    &nbsp;|&nbsp;
+    <button (click) = assignTeacherToTopic(t.id)>Assign to Topic</button>
   </tr>
 </table>
 
