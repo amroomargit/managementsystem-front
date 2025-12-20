@@ -9,6 +9,8 @@ import { EnrollInCoursePopup } from '../../enroll-in-course-popup/enroll-in-cour
 import { GridViewPopup } from '../../grid-view-popup/grid-view-popup';
 import { BackendService } from '../../backend-service';
 import { SimplifiedGridViewPopup } from '../../simplified-grid-view-popup/simplified-grid-view-popup';
+import { Popup } from '../../popup/popup';
+import { InsertStudentPopup } from '../../insert-student-popup/insert-student-popup';
 
 @Component({
   selector: 'app-all-teachers',
@@ -91,6 +93,39 @@ export class AllTeachers {
         title:`Topics Teacher ${teacherId} is Eligible to Teach`,
         action: "View Teachers Topics"
       }
+    });
+  }
+
+  deleteTeacher(teacherId:number){
+    const dialogRef = this.dialog.open(Popup,{
+      width: '300px',
+      data:{
+        popupTitle:"Please Confirm.",
+        popupMessage:`Would you like to delete the teacher with ID ${teacherId}`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result === "Yes"){
+        this.http.delete(`http://localhost:8081/teachers/delete-teacher/${teacherId}`,{responseType:'text'})
+        .subscribe((response)=>{
+          console.log("Deleted: ",response);
+          this.backendService.loadAllTeachers();
+        })
+      }
     })
+  }
+
+  insertTeacher(){
+    const dialogRef = this.dialog.open(InsertStudentPopup,{
+      width: '500px',
+      data:{
+        action:'Insert Teacher'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.backendService.loadAllTeachers();
+    });
   }
 }

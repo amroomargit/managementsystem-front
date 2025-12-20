@@ -38,19 +38,25 @@ export class InsertStudentPopup {
       lastName: this.lastName
     }
 
-    this.http.post('http://localhost:8081/students/insert-student',formValues).subscribe(
-      response => {
-        console.log("Student Added.",response);
-        this.newDialogReference.close({
-          username:this.username,
-          password:this.password,
-          firstName: this.firstName,
-          lastName:this.lastName})
-      },
-      error => {
-        console.log(`Error: ${error}`);
-      }
-    )
+    const baseURL = 'http://localhost:8081';
+
+    const endpoint = this.data.action === 'Insert Student' ? '/students/insert-student' : '/teachers/insert-teacher';
+
+    this.http.post(`${baseURL}${endpoint}`,formValues).subscribe({
+    next: (response) => {
+      console.log("Entity Added.", response);
+
+      this.newDialogReference.close({
+        username: this.username,
+        password: this.password,
+        firstName: this.firstName,
+        lastName: this.lastName
+      });
+    },
+    error: (error) => {
+      console.log("Error:", error);
+    }
+  });
   }
 
   cancel(){

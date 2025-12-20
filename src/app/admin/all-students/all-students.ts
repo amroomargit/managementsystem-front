@@ -53,7 +53,10 @@ export class AllStudents implements OnInit{
 
   insertStudent(){
     const dialogRef = this.dialog.open(InsertStudentPopup,{
-      width: '500px'
+      width: '500px',
+      data:{
+        action: 'Insert Student'
+      }
     });
 
     dialogRef.afterClosed().subscribe(result =>{

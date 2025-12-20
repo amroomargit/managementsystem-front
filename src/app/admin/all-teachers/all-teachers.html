@@ -14,6 +14,8 @@
     <td>{{t.id}}</td>
     <td> <button (click) = updateTeacher(t.id,t.firstName,t.lastName)>Update</button></td>
     &nbsp;|&nbsp;
+    <td><button (click) = deleteTeacher(t.id)>Delete</button></td>
+    &nbsp;|&nbsp;
     <button (click) = assignTeacherToTopic(t.id)>Assign to Topic</button>
     &nbsp;|&nbsp;
     <button (click) = assignTeacherToCourse(t.id)>Assign to Course</button>
@@ -23,6 +25,8 @@
     <button (click) = viewTeachersTopics(t.id)>View Topics</button>
   </tr>
 </table>
+
+<button (click) = insertTeacher()>Insert New Teacher</button>
 
 <ng-template #noData>
   <p>No teachers found in database</p>
