@@ -2,9 +2,9 @@
 
 <mat-dialog-content class = "popup-body">
 
-  <div class = "course-grid" *ngIf="studentService.courses().length > 0">
+  <div class = "course-grid" *ngIf="backendService.courses().length > 0">
 
-    <div class = "course-card" *ngFor="let course of studentService.courses()">
+    <div class = "course-card" *ngFor="let course of backendService.courses()">
 
       <h3 class="course-title">{{course.name}}</h3> <!--The course.name comes from the course-dto.ts file under models tab in explorer-->
 
@@ -20,7 +20,7 @@
     </div>
   </div>
 
-  <p *ngIf="studentService.courses().length === 0"> No Courses Available.</p>
+  <p *ngIf="backendService.courses().length === 0"> No Courses Available.</p>
 
 </mat-dialog-content>
 

@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Popup } from '../../popup/popup';
 import { UpdateStudentPopup } from '../../update-student-popup/update-student-popup';
 import { InsertStudentPopup } from '../../insert-student-popup/insert-student-popup';
-import { StudentService } from '../../student-service';
+import { BackendService } from '../../backend-service';
 import { EnrollInCoursePopup } from '../../enroll-in-course-popup/enroll-in-course-popup';
 import { GridViewPopup } from '../../grid-view-popup/grid-view-popup';
 
@@ -23,12 +23,12 @@ import { GridViewPopup } from '../../grid-view-popup/grid-view-popup';
 export class AllStudents implements OnInit{
   private http = inject(HttpClient); //we use http to connect to the backend endpoints (like with postman)
   private dialog = inject(MatDialog);
-  public studentService = inject(StudentService);
+  public backendService = inject(BackendService);
 
   public students: Observable<StudentDTO[]> | null = null;
 
   ngOnInit(){
-    this.studentService.loadAllStudents();
+    this.backendService.loadAllStudents();
   }
 
 
@@ -47,7 +47,7 @@ export class AllStudents implements OnInit{
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.studentService.loadAllStudents();
+      this.backendService.loadAllStudents();
     });
   }
 
@@ -57,7 +57,7 @@ export class AllStudents implements OnInit{
     });
 
     dialogRef.afterClosed().subscribe(result =>{
-      this.studentService.loadAllStudents();
+      this.backendService.loadAllStudents();
     });
   }
 
@@ -96,6 +96,7 @@ export class AllStudents implements OnInit{
     const dialogRef = this.dialog.open(GridViewPopup,{
       width: '1000px',
       data:{
+        action: "All Courses in Database",
         title:"View All Courses" //Only reason we are sending data through is so we can set the title since this popup is highly reusable (it's literally just a grid that displays data)
       }
     });
@@ -126,7 +127,7 @@ export class AllStudents implements OnInit{
           .subscribe((response) =>
             {
               console.log("Deleted: ",response);
-              this.studentService.loadAllStudents();
+              this.backendService.loadAllStudents();
             });
             }
       }

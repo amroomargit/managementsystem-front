@@ -8,7 +8,7 @@
     <th>Actions</th>
   </tr>
 
-  <tr *ngFor = "let t of teacherService.teachers()">
+  <tr *ngFor = "let t of backendService.teachers()">
     <td>{{t.firstName}}</td>
     <td>{{t.lastName}}</td>
     <td>{{t.id}}</td>
@@ -17,6 +17,10 @@
     <button (click) = assignTeacherToTopic(t.id)>Assign to Topic</button>
     &nbsp;|&nbsp;
     <button (click) = assignTeacherToCourse(t.id)>Assign to Course</button>
+    &nbsp;|&nbsp;
+    <button (click) = viewTeachersCourses(t.id)>View Courses</button>
+    &nbsp;|&nbsp;
+    <button (click) = viewTeachersTopics(t.id)>View Topics</button>
   </tr>
 </table>
 

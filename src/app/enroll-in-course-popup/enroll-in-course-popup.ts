@@ -6,11 +6,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClient } from '@angular/common/http';
-import { StudentService } from '../student-service';
+import { BackendService } from '../backend-service';
 import { NgFor } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { TeacherService } from '../teacher-service';
 import { selectOption } from '../models/select-option';
 
 
@@ -33,8 +32,7 @@ export class EnrollInCoursePopup {
   http = inject(HttpClient);
   data = inject(MAT_DIALOG_DATA);
   dialogReference = inject(MatDialogRef);
-  studentService = inject(StudentService);
-  teacherService = inject(TeacherService);
+  backendService = inject(BackendService);
   snackbar = inject(MatSnackBar);
 
   selectedIdFromHTML:number|null = null;
@@ -45,20 +43,15 @@ export class EnrollInCoursePopup {
 
     switch(this.data.action){
       case 'teacher topic assign':
-        return this.teacherService.topics().map(t => ({
+        return this.backendService.topics().map(t => ({
           id: t.id,
           name: t.name
         }));
 
-      case 'teacher course assign':
-        return this.teacherService.courses().map(c => ({
-          id: c.id,
-          name: c.name
-        }));
-
       case 'enroll':
       case 'unenroll':
-        return this.studentService.courses().map(c => ({
+      case 'teacher course assign':
+        return this.backendService.courses().map(c => ({
           id: c.id,
           name: c.name
         }));
@@ -72,25 +65,22 @@ export class EnrollInCoursePopup {
 
   ngOnInit(){
     //Reset course list between each popup call (if we don't then it loads old lists for students who shouldn't have a list)
-    this.studentService.resetCourseList();
+    this.backendService.resetCourseList();
 
     //Checks if we should loadAllCourses, loadAllTopics, etc. and which WritableSignal we wanna use in the HTML with *ngFor
     switch(this.data.action){
 
       case 'enroll':
-        this.studentService.loadAllCourses();
+      case 'teacher course assign':
+        this.backendService.loadAllCourses();
         break;
 
       case 'unenroll':
-        this.studentService.loadCoursesStudentIsEnrolledIn(this.data.studentNum);
+        this.backendService.loadCoursesStudentIsEnrolledIn(this.data.studentNum);
         break;
 
       case 'teacher topic assign':
-        this.teacherService.loadAllTopics();
-        break;
-
-      case 'teacher course assign':
-        this.teacherService.loadAllCourses();
+        this.backendService.loadAllTopics();
         break;
 
       default:
@@ -174,10 +164,11 @@ export class EnrollInCoursePopup {
   }
 
   teacherCourseAssign(){
-    this.http.post(`http://localhost:8081/teachers/assign-teacher-to-a-course/${this.data.teacherId}/${this.selectedIdFromHTML}`,{})
+    this.http.post<{ message: string }>(`http://localhost:8081/teachers/assign-teacher-to-a-course/${this.data.teacherId}/${this.selectedIdFromHTML}`,{})
     .subscribe(
       (response) => {
          console.log("Console log: ",response);
+         this.snackbarMessage(response.message);
          this.dialogReference.close({});
       },
       (error) =>

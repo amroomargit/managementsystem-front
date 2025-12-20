@@ -2,13 +2,17 @@ import { inject, Injectable, Signal, signal, WritableSignal } from '@angular/cor
 import { StudentDTO } from './models/student-dto';
 import { CourseDTO } from './models/course-dto';
 import { HttpClient } from '@angular/common/http';
+import { TeacherDTO } from './models/teacher-dto';
+import { TopicDTO } from './models/topic-dto';
 
 @Injectable({
   providedIn: 'root',
 })
-export class StudentService {
+export class BackendService {
   public students:WritableSignal<StudentDTO[]> = signal([]); //Variable called studentChange, of type WritableSignal, which only accepts an array of StudentDTOs
   public courses:WritableSignal<CourseDTO[]> = signal([]);
+  public teachers:WritableSignal<TeacherDTO[]> = signal([]);
+  public topics:WritableSignal<TopicDTO[]> = signal([]);
 
   private http = inject(HttpClient);
 
@@ -16,7 +20,7 @@ export class StudentService {
       this.http.get<StudentDTO[]>('http://localhost:8081/students/all') //Sends HTTP get request to backend, expects a list of StudentDTOs to be returned (in .ts there is no List<>, we use array [])
       .subscribe({ //When backend responds, run the function below
         next:(data) => { //data is the array of students we recieved from the backend
-          this.students.set(data); //We are calling .set() on a WritableSignal (named students, imported from student-service.ts), and passing through our data (the array of students), which updates its value
+          this.students.set(data); //We are calling .set() on a WritableSignal (named students, imported from backend-service.ts), and passing through our data (the array of students), which updates its value
           console.log(data); //This is just returning the array to the console so we can check that it actually did pass through
         }
         /*Doing it this way solved the ExpressionChangedAfterItHasBeenCheckedError because before we were using
@@ -33,6 +37,26 @@ export class StudentService {
       });
     }
 
+    loadAllTeachers(){
+    this.http.get<TeacherDTO[]>('http://localhost:8081/teachers/all')
+    .subscribe({
+      next:(data) => {
+        this.teachers.set(data);
+        console.log(data);
+      }
+    });
+  }
+
+  loadAllTopics(){
+    this.http.get<TopicDTO[]>('http://localhost:8081/topics/all')
+    .subscribe({
+      next:(data) => {
+        this.topics.set(data);
+        console.log(data);
+      }
+    })
+  }
+
     loadCoursesStudentIsEnrolledIn(studentId:number){
       this.http.get<CourseDTO[]>(`http://localhost:8081/courses/get-a-students-courses/${studentId}`)
       .subscribe({
@@ -41,6 +65,16 @@ export class StudentService {
         }
       });
     }
+
+    loadAllCoursesTaughtByTeacher(teacherId:number){
+    this.http.get<CourseDTO[]>(`http://localhost:8081/teachers/get-courses-of-teacher/${teacherId}`)
+    .subscribe({
+      next:(data) => {
+        this.courses.set(data);
+        console.log(data);
+      }
+    })
+  }
 
     resetCourseList(){
       this.courses.set([]);   // clear the signal

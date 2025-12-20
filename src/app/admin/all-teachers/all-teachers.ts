@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { TeacherService } from '../../teacher-service';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
@@ -7,6 +6,9 @@ import { TeacherDTO } from '../../models/teacher-dto';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { UpdateStudentPopup } from '../../update-student-popup/update-student-popup';
 import { EnrollInCoursePopup } from '../../enroll-in-course-popup/enroll-in-course-popup';
+import { GridViewPopup } from '../../grid-view-popup/grid-view-popup';
+import { BackendService } from '../../backend-service';
+import { SimplifiedGridViewPopup } from '../../simplified-grid-view-popup/simplified-grid-view-popup';
 
 @Component({
   selector: 'app-all-teachers',
@@ -18,12 +20,12 @@ export class AllTeachers {
 
   private http = inject(HttpClient);
   private dialog = inject(MatDialog);
-  public teacherService = inject(TeacherService);
+  public backendService = inject(BackendService);
 
   public teachers: Observable<TeacherDTO[]> | null = null;
 
   ngOnInit(){
-    this.teacherService.loadAllTeachers();
+    this.backendService.loadAllTeachers();
   }
 
   updateTeacher(teacherId:number,firstName:string,lastName:string){
@@ -38,7 +40,7 @@ export class AllTeachers {
     });
 
     dialogRef.afterClosed().subscribe(result=>{
-      this.teacherService.loadAllTeachers();
+      this.backendService.loadAllTeachers();
     });
   }
 
@@ -67,5 +69,28 @@ export class AllTeachers {
       }
     });
     dialogRef.afterClosed().subscribe();
+  }
+
+  viewTeachersCourses(teacherId:number){
+    const dialogRef = this.dialog.open(GridViewPopup,{
+      width:'1000px',
+      data:{
+        id:teacherId,
+        title:`Courses Taught By Teacher Number: ${teacherId}`,
+        action:"View Teachers Courses"
+      }
+    });
+    dialogRef.afterClosed().subscribe();
+  }
+
+  viewTeachersTopics(teacherId:number){
+    const dialogRef = this.dialog.open(SimplifiedGridViewPopup,{ //make new popup
+      width:'1000px',
+      data:{
+        id:teacherId,
+        title:`Topics Teacher ${teacherId} is Eligible to Teach`,
+        action: "View Teachers Topics"
+      }
+    })
   }
 }

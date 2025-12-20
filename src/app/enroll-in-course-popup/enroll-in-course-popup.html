@@ -7,7 +7,7 @@
     <mat-label>{{data.label}}</mat-label>
 
     <mat-select [(ngModel)] = "selectedIdFromHTML">
-      <!--c.id and c.name are from CourseDTO who is referenced in student-service.ts who contacts the backend endpoint to load all students-->
+      <!--c.id and c.name are from CourseDTO who is referenced in backend-service.ts who contacts the backend endpoint to load all students-->
       <mat-option *ngFor="let o of options()" [value]="o.id">{{o.name}}</mat-option>
     </mat-select>
 
