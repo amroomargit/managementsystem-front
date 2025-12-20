@@ -1,0 +1,40 @@
+.topic-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:16px;
+  margin-top:12px;
+  padding: 0 12px;
+}
+
+.topic-card{
+  border-radius:14px;
+  padding: 14px 20px;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+
+   display: grid;
+   grid-template-columns: 2fr 1fr 2fr 2fr 2fr;
+   align-items:center;
+   column-gap:16px;
+
+   min-height:70px;
+}
+
+.topic-header{
+  display: flex;
+  flex-direction: column;
+}
+
+.topic-title{
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.topic-id{
+  margin-top: 4px;
+  margin-left: 16px; /* 👈 indentation */
+  font-size: 0.85rem;
+  color: #666;
+}

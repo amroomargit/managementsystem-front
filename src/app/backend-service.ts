@@ -76,8 +76,22 @@ export class BackendService {
     })
   }
 
+    loadAllTopicsTaughtByTeacher(teacherId:number){
+      this.http.get<TopicDTO[]>(`http://localhost:8081/teachers/get-topics-of-teacher/${teacherId}`)
+      .subscribe({
+        next:(data) => {
+          this.topics.set(data);
+          console.log(data);
+        }
+      });
+    }
+
     resetCourseList(){
       this.courses.set([]);   // clear the signal
       }
+
+    resetTopicList(){
+      this.topics.set([]);
+    }
 
 }
