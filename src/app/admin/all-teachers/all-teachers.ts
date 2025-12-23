@@ -37,7 +37,7 @@ export class AllTeachers {
         id:teacherId,
         firstName:firstName,
         lastName:lastName,
-        action: "teacher"
+        action: "Update Teacher"
       }
     });
 

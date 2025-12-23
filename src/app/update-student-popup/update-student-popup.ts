@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClient } from '@angular/common/http';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-update-student-popup',
@@ -14,7 +15,10 @@ import { HttpClient } from '@angular/common/http';
     MatDialogActions,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule, MatDialogTitle],
+    MatButtonModule,
+    MatDialogTitle,
+    NgIf
+  ],
   templateUrl: './update-student-popup.html',
   styleUrl: './update-student-popup.css',
 })
@@ -23,20 +27,28 @@ export class UpdateStudentPopup {
   newDialogReference = inject(MatDialogRef<UpdateStudentPopup>); //Make sure you always inject these two for any popup
   http = inject(HttpClient);
 
-  firstName:string = this.data.firstName;
-  lastName:string = this.data.lastName;
-  id:number = this.data.id;
+  username = '';
+  password = '';
+  firstName = '';
+  lastName = '';
+  id!: number;
 
-  //JSON object with the new names recorded, which we will be sending to the backend using the code below
-  //We write this here because we would've had to have written it in both submitStudent() and submitTeacher()
+  ngOnInit() {
+  this.username = this.data?.username ?? '';
+  this.firstName = this.data?.firstName ?? '';
+  this.lastName = this.data?.lastName ?? '';
+  }
 
 
   confirm(){
-    if(this.data.action === "student"){
+    if(this.data.action === "Update Student"){
       this.submitStudent();
     }
-    else if(this. data.action === "teacher"){
+    else if(this. data.action === "Update Teacher"){
       this.submitTeacher();
+    }
+    else if(this.data.action === "Update User"){
+      this.submitUser();
     }
   }
 
@@ -89,12 +101,32 @@ export class UpdateStudentPopup {
      )
   }
 
+  submitUser(){
+
+    const formValues = {
+      username:this.username,
+      firstName:this.firstName,
+      lastName:this.lastName
+    }
+    this.http.put(`http://localhost:8081/users/update-profile/${this.id}`,formValues)
+    .subscribe(
+      (response)=>{
+        console.log(response);
+        this.newDialogReference.close({
+          username:this.username,
+          firstName:this.firstName,
+          lastName:this.lastName
+        });
+      },
+      error => {
+        console.log(error);
+      }
+    )
+  }
+
 
   //Assuming they click cancel, just do nothing
   cancel(){
     this.newDialogReference.close(null);
   }
-
-
-
 }

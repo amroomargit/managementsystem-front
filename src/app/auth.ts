@@ -43,6 +43,8 @@ export class Auth {
     sessionStorage.removeItem('role');
     sessionStorage.removeItem('firstName');
     sessionStorage.removeItem('lastName');
+    sessionStorage.removeItem('username');
+    sessionStorage.removeItem('id');
     sessionStorage.removeItem('user');
     this.setAuthenticatedUser(false);
   }

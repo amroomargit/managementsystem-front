@@ -4,6 +4,7 @@ import { CourseDTO } from './models/course-dto';
 import { HttpClient } from '@angular/common/http';
 import { TeacherDTO } from './models/teacher-dto';
 import { TopicDTO } from './models/topic-dto';
+import { UserDTO } from './models/user-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,7 @@ export class BackendService {
   public courses:WritableSignal<CourseDTO[]> = signal([]);
   public teachers:WritableSignal<TeacherDTO[]> = signal([]);
   public topics:WritableSignal<TopicDTO[]> = signal([]);
+  public user:WritableSignal<UserDTO | null> = signal(null);
 
   private http = inject(HttpClient);
 

@@ -1,1 +1,40 @@
-<p>home-component works!</p>
+<h1>Home</h1>
+
+<div *ngIf = "user() as u">
+
+  <div *ngIf = "u.role === 'ROLE_ADMIN'">
+
+    <table>
+      <tr>
+        <th>Username</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Actions</th>
+      </tr>
+
+      <tr>
+        <td>{{u.username}}</td>
+        <td>{{u.firstName}}</td>
+        <td>{{u.lastName}}</td>
+        <td> <button (click) = "updateUserProfile(u.id,u.firstName,u.lastName,u.username)">Update Profile</button> </td>
+      </tr>
+    </table>
+
+  </div>
+
+
+
+  <div *ngIf = "u.role === 'ROLE_STUDENT'">
+    <!--(change username functionality) + Student should be able to view the courses they're currently taking, and the topics they're taking-->
+  </div>
+
+
+
+  <div *ngIf = "u.role === 'ROLE_TEACHER'">
+    <!--(change username functionality) Teacher should be able to view the courses they're currently teacher, and the topics they're teaching-->
+  </div>
+
+
+
+</div>
+

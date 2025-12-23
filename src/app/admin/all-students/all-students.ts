@@ -40,9 +40,12 @@ export class AllStudents implements OnInit{
       width: '600px',
       data:{
         id: studentId,
+
+        /* The reason we have first and last name here is because we want the popup to have the first and last name autofilled
+        as whatever the first and last name currently are */
         firstName: firstName,
         lastName: lastName,
-        action: "student"
+        action: "Update Student"
       }
     });
 

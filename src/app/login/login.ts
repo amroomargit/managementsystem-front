@@ -16,7 +16,7 @@ export class Login {
   password: string = '';
   errorMessage: string = '';
   private http = inject(HttpClient);
-  private auth = inject(Auth);
+  public auth = inject(Auth);
   private router = inject(Router);
 
 
@@ -33,6 +33,8 @@ export class Login {
         this.auth.setAuthenticatedUser(true);
         this.auth.setRole(data.role);
         this.auth.saveUser({
+          id:data.id,
+          username:data.username,
           firstName:data.firstName,
           lastName:data.lastName,
           role:data.role
