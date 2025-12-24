@@ -40,9 +40,10 @@ export class Login {
           role:data.role
         });
 
-        console.log("Saved token: ", data.token);
+        console.log("login.ts Saved token: ", data.token);
+        console.log("login.ts ID: ", data.id);
 
-        console.log(this.auth.getAuthenticatedUser(), this.auth.getUser());
+        console.log("login.ts User: ",this.auth.getAuthenticatedUser(), this.auth.getUser());
 
         //Navigate after clicking login button
         if(data.role === 'ROLE_ADMIN'){

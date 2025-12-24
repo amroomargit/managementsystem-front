@@ -27,14 +27,13 @@ export class UpdateStudentPopup {
   newDialogReference = inject(MatDialogRef<UpdateStudentPopup>); //Make sure you always inject these two for any popup
   http = inject(HttpClient);
 
-  username = '';
   password = '';
   firstName = '';
   lastName = '';
   id!: number;
 
   ngOnInit() {
-  this.username = this.data?.username ?? '';
+  this.id = this.data.id;
   this.firstName = this.data?.firstName ?? '';
   this.lastName = this.data?.lastName ?? '';
   }
@@ -102,20 +101,19 @@ export class UpdateStudentPopup {
   }
 
   submitUser(){
-
     const formValues = {
-      username:this.username,
       firstName:this.firstName,
-      lastName:this.lastName
+      lastName:this.lastName,
+      password:this.password
     }
     this.http.put(`http://localhost:8081/users/update-profile/${this.id}`,formValues)
     .subscribe(
       (response)=>{
-        console.log(response);
+        console.log("update-student-popup.ts, firstname and lastname entered into popup: ",this.firstName,this.lastName);
         this.newDialogReference.close({
-          username:this.username,
           firstName:this.firstName,
-          lastName:this.lastName
+          lastName:this.lastName,
+          password:this.password
         });
       },
       error => {

@@ -2,20 +2,6 @@
 
 <mat-dialog-content class = "popup-body">
 
-  <div *ngIf = "data.action === 'Update User'">
-
-    <mat-form-field apperance="fill" class="field">
-      <mat-label>Username:</mat-label>
-      <input matInput [(ngModel)]="username">
-    </mat-form-field>
-
-    <mat-form-field apperance="fill" class="field">
-      <mat-label>Password:</mat-label>
-      <input matInput [(ngModel)]="password">
-    </mat-form-field>
-
-  </div>
-
   <mat-form-field appearance="fill" class = "field">
     <mat-label>First Name:</mat-label>
     <input matInput [(ngModel)]="firstName">
@@ -25,6 +11,15 @@
     <mat-label>Last Name:</mat-label>
     <input matInput [(ngModel)]="lastName">
   </mat-form-field>
+
+  <div *ngIf = "data.action === 'Update User'">
+
+    <mat-form-field apperance="fill" class="field">
+      <mat-label>Password:</mat-label>
+      <input matInput [(ngModel)]="password">
+    </mat-form-field>
+
+  </div>
 
 </mat-dialog-content>
 
