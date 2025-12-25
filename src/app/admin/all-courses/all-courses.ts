@@ -27,7 +27,17 @@ export class AllCourses {
   }
 
   updateCourse(courseId:number){
-
+    const dialogRef = this.dialog.open(InsertStudentPopup,{
+      width:'1000px',
+      data:{
+        id:courseId,
+        title:`Update Course with ID: ${courseId}`,
+        action:'Update Course'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result=>{
+      this.backendService.loadAllCourses();
+    });
   }
 
   deleteCourse(courseId:number){

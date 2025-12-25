@@ -66,7 +66,7 @@ export class InsertStudentPopup {
   }
 
   ngOnInit(){
-    if(this.data.action === "Insert Course"){
+    if(this.data.action === "Insert Course" || this.data.action === "Update Course"){
       this.backendService.loadAllTopics();
       this.backendService.loadAllTeachers();
     }
@@ -76,7 +76,11 @@ export class InsertStudentPopup {
     if(this.data.action === "Insert Student"){
       this.submitNewStudent();
     }
-    this.submitNewCourse();
+    else if(this.data.action === "Insert Course"){
+      this.submitNewCourse();
+    }
+    this.submitUpdatedCourse(this.data.id);
+
   }
 
   snackbarMessage(msg:string){
@@ -132,7 +136,31 @@ export class InsertStudentPopup {
         this.snackbarMessage(error.error?.message);
         console.log(error);
       }
-    })
+    });
+  }
+
+  submitUpdatedCourse(courseId:number){
+
+    const formValues={
+      starttime:this.localStartDateTime,
+      endtime:this.localEndDateTime,
+      teacher:{
+        id:this.teacherId
+      },
+      topic:{
+        id:this.topicId
+      }
+    }
+
+    this.http.post(`http://localhost:8081/courses/update-course-info/${courseId}`,formValues).subscribe({
+      next:(response)=>{
+        this.newDialogReference.close({});
+      },
+      error: (error)=>{
+        this.snackbarMessage(error.error?.message);
+        console.log(error);
+       }
+    });
   }
 
   cancel(){
