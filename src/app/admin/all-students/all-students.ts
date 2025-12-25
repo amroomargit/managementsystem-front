@@ -58,7 +58,8 @@ export class AllStudents implements OnInit{
     const dialogRef = this.dialog.open(InsertStudentPopup,{
       width: '500px',
       data:{
-        action: 'Insert Student'
+        action: 'Insert Student',
+        title: 'Enter Info for the New Student'
       }
     });
 
@@ -97,17 +98,6 @@ export class AllStudents implements OnInit{
     dialogRef.afterClosed().subscribe(result => {
     });
   }
-
-  viewAllCourses(){
-    const dialogRef = this.dialog.open(GridViewPopup,{
-      width: '1000px',
-      data:{
-        action: "All Courses in Database",
-        title:"View All Courses" //Only reason we are sending data through is so we can set the title since this popup is highly reusable (it's literally just a grid that displays data)
-      }
-    });
-  }
-
 
   /*The reason this method is coded different from the other ones that also use popups is because the other
   popups need specific fields, so they have their own popup tailored to their specific needs, but since this

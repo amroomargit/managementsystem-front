@@ -3,6 +3,7 @@ import { Admin } from './admin';
 import { AllTeachers } from './all-teachers/all-teachers';
 import { AllStudents } from './all-students/all-students';
 import { HomeComponent } from '../home-component/home-component';
+import { AllCourses } from './all-courses/all-courses';
 
 //ROUTING TABLE EXPLANATION...
 /*After having been redirected here, by having typed http://localhost:4200/admin, since after the
@@ -30,6 +31,10 @@ export const routes: Routes = [{
     {
       path: 'all-students',
       component: AllStudents
+    },
+    {
+      path:'all-courses',
+      component:AllCourses
     },
     {
       path: 'home',

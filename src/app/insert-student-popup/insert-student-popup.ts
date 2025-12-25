@@ -6,15 +6,30 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClient } from '@angular/common/http';
+import { NgFor, NgIf } from '@angular/common';
+import { MatSelectModule } from '@angular/material/select';
+import { BackendService } from '../backend-service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-insert-student-popup',
+  standalone:true,
   imports: [FormsModule,
     MatDialogContent,
     MatDialogActions,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule, MatDialogTitle],
+    MatButtonModule,
+    MatDialogTitle,
+    NgIf,
+    NgFor,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSnackBarModule
+  ],
   templateUrl: './insert-student-popup.html',
   styleUrl: './insert-student-popup.css',
 })
@@ -22,15 +37,58 @@ export class InsertStudentPopup {
   data = inject(MAT_DIALOG_DATA);
   newDialogReference = inject(MatDialogRef);
   http = inject(HttpClient);
+  backendService = inject(BackendService);
+  snackbar = inject(MatSnackBar)
 
+  //initialize variables so we can tie whatever the user chooses in the HTML to these variables, then we can send them as a DTO (const formValues) to the backend
   username:string|null = null;
   password:string|null = null;
   firstName:string|null = null;
   lastName:string|null = null;
 
-  submit(){
 
-    //Set the first and last names to be whatever the user entered into the form in the popup
+  courseName:string|null = null;
+  topicId: number|null = null;
+  teacherId: number|null = null;
+  selectedStartDate!: Date;
+  selectedStartTime!: string;
+  selectedEndDate!: Date;
+  selectedEndTime!: string;
+
+  get localStartDateTime(): string{
+    const date = this.selectedStartDate.toISOString().split('T')[0];
+    return `${date}T${this.selectedStartTime}`;
+  }
+
+  get localEndDateTime(): string{
+    const date = this.selectedEndDate.toISOString().split('T')[0];
+    return `${date}T${this.selectedEndTime}`;
+  }
+
+  ngOnInit(){
+    if(this.data.action === "Insert Course"){
+      this.backendService.loadAllTopics();
+      this.backendService.loadAllTeachers();
+    }
+  }
+
+  confirm(){
+    if(this.data.action === "Insert Student"){
+      this.submitNewStudent();
+    }
+    this.submitNewCourse();
+  }
+
+  snackbarMessage(msg:string){
+    this.snackbar.open(msg,"Close",{
+      duration:10000,
+      panelClass:['snackbar-error']
+    })
+  }
+
+  submitNewStudent(){
+
+    //This is the DTO that will be sent to the backend, this is just us assigning the values from here and mapping them to the names we want so the backend can read the DTO
     const formValues = {
       username:this.username,
       password:this.password,
@@ -45,18 +103,36 @@ export class InsertStudentPopup {
     this.http.post(`${baseURL}${endpoint}`,formValues).subscribe({
     next: (response) => {
       console.log("Entity Added.", response);
-
-      this.newDialogReference.close({
-        username: this.username,
-        password: this.password,
-        firstName: this.firstName,
-        lastName: this.lastName
-      });
     },
     error: (error) => {
       console.log("Error:", error);
     }
   });
+  }
+
+  submitNewCourse(){
+
+    const formValues = {
+      name:this.courseName,
+      teacher:{
+        id:this.teacherId
+      },
+      topic:{
+        id:this.topicId
+      },
+      starttime:this.localStartDateTime,
+      endtime:this.localEndDateTime
+    };
+
+    this.http.post(`http://localhost:8081/courses/insert-course`,formValues).subscribe({
+      next: (response) => {
+        this.newDialogReference.close({});
+      },
+      error: (error) => {
+        this.snackbarMessage(error.error?.message);
+        console.log(error);
+      }
+    })
   }
 
   cancel(){
