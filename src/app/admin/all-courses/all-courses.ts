@@ -99,7 +99,6 @@ export class AllCourses {
      dialogRef.afterClosed().subscribe(result=>{
       this.backendService.loadAllCourses();
     });
-
   }
 
 

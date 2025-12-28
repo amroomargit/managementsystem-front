@@ -1,1 +1,26 @@
-<p>all-topics works!</p>
+<h2 mat-dialog-title class = "dialog-title">All Topics</h2>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Topic</th>
+    <th>Actions</th>
+  </tr>
+
+  <tr *ngFor = "let t of backendService.topics()">
+    <td>{{t.id}}</td>
+    <td>{{t.name}}</td>
+    <button (click) = updateTopic(t.id,t.name)>Update Topic</button>
+    &nbsp;|&nbsp;
+    <button (click) = deleteTopic(t.id)>Delete Topic</button>
+    &nbsp;|&nbsp;
+    <button (click) = getStudentsInTopic(t.id)>Students in This Topic</button>
+    &nbsp;|&nbsp;
+    <button (click) = getTeachersInTopic(t.id)>Teachers in This Topic</button>
+  </tr>
+</table>
+
+<div class = "button-column">
+  <button (click) = viewAllTopics()>View All Topics</button>
+  <button (click) = insertTopic()> Insert a Topic</button>
+</div>

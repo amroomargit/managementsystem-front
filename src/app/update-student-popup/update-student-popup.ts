@@ -49,6 +49,9 @@ export class UpdateStudentPopup {
     else if(this.data.action === "Update User"){
       this.submitUser();
     }
+    else if(this.data.action === "Update Topic"){
+      this.submitTopic();
+    }
   }
 
   /*Assuming the user clicks the submit button after filling out the new first and last name, then upon the
@@ -117,6 +120,23 @@ export class UpdateStudentPopup {
         });
       },
       error => {
+        console.log(error);
+      }
+    )
+  }
+
+  submitTopic(){
+    const formValues = {
+      name:this.firstName
+    }
+    this.http.put(`http://localhost:8081/topics/update-topic-info/${this.id}`,formValues)
+    .subscribe(
+      (response)=>{
+        this.newDialogReference.close({
+          name:this.firstName
+        });
+      },
+      error =>{
         console.log(error);
       }
     )
