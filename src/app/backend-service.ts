@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { TeacherDTO } from './models/teacher-dto';
 import { TopicDTO } from './models/topic-dto';
 import { UserDTO } from './models/user-dto';
+import { D } from '@angular/cdk/keycodes';
 
 @Injectable({
   providedIn: 'root',
@@ -88,12 +89,26 @@ export class BackendService {
       });
     }
 
+    loadAllStudentsInACourse(courseId:number){
+      this.http.get<StudentDTO[]>(`http://localhost:8081/students/get-students-in-a-course/${courseId}`)
+      .subscribe({
+        next:(data) => {
+          this.students.set(data);
+          console.log(data);
+        }
+      });
+    }
+
     resetCourseList(){
       this.courses.set([]);   // clear the signal
       }
 
     resetTopicList(){
       this.topics.set([]);
+    }
+
+    resetStudentList(){
+      this.students.set([]);
     }
 
 }

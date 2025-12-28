@@ -82,6 +82,24 @@ export class AllCourses {
         title:"View All Courses" //Only reason we are sending data through is so we can set the title since this popup is highly reusable (it's literally just a grid that displays data)
       }
     });
+     dialogRef.afterClosed().subscribe(result=>{
+      this.backendService.loadAllCourses();
+    });
+  }
+
+  seeStudentsInCourse(courseId:number){
+    const dialogRef = this.dialog.open(GridViewPopup,{
+      width: '1000px',
+      data:{
+        id:courseId,
+        action: "All Students in Course",
+        title:`View All Students in Course ${courseId}`
+      }
+    });
+     dialogRef.afterClosed().subscribe(result=>{
+      this.backendService.loadAllCourses();
+    });
+
   }
 
 

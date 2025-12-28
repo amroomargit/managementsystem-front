@@ -2,7 +2,7 @@
 
 <mat-dialog-content class = "popup-body">
 
-  <div class = "course-grid" *ngIf="backendService.courses().length > 0">
+  <div *ngIf = "!(data.action === 'All Students in Course') && backendService.courses().length > 0" class = "course-grid">
 
     <div class = "course-card" *ngFor="let course of backendService.courses()">
 
@@ -16,11 +16,24 @@
 
       <p><strong>Teacher:</strong> {{course.teacher.firstName}} {{course.teacher.lastName}}</p>
 
+      <p *ngIf="backendService.courses().length === 0"> No Courses Available.</p>
 
     </div>
   </div>
 
-  <p *ngIf="backendService.courses().length === 0"> No Courses Available.</p>
+  <div *ngIf = "data.action === 'All Students in Course' && backendService.students().length > 0" class = "course-grid">
+
+    <div class = "course-card" *ngFor="let student of backendService.students()">
+
+      <h3 class="course-title">{{student.firstName}} {{student.lastName}}</h3>
+
+      <p><strong>ID:</strong> {{student.id}}</p>
+
+      <p *ngIf="backendService.students().length === 0"> No Students Available.</p>
+    </div>
+  </div>
+
+
 
 </mat-dialog-content>
 

@@ -37,7 +37,14 @@ export class GridViewPopup {
   snackbar = inject(MatSnackBar);
 
   ngOnInit(){
-    this.backendService.resetCourseList();
+    if(this.data.action === 'All Courses in Database' ||
+      this.data.action === 'View Teachers Courses'){
+      this.backendService.resetCourseList();
+    }
+    else if(this.data.action === 'All Students in Course'){
+      this.backendService.resetStudentList();
+    }
+
 
     switch(this.data.action){
       case 'All Courses in Database':
@@ -45,6 +52,9 @@ export class GridViewPopup {
         break;
       case 'View Teachers Courses':
         this.backendService.loadAllCoursesTaughtByTeacher(this.data.id);
+        break;
+      case 'All Students in Course':
+        this.backendService.loadAllStudentsInACourse(this.data.id);
         break;
       default:
         console.log("The switch-case in ngOnInit() in grid-view-popup.ts did not work properly.");
