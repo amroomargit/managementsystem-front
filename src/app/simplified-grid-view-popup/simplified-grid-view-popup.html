@@ -1,21 +1,22 @@
 <h2 mat-dialog-title class = "dialog-title">{{data.title}}</h2>
 
 <mat-dialog-content class = "popup-body">
-  <div class = "topic-grid" *ngIf="backendService.topics().length > 0">
 
-    <div class = "topic-card" *ngFor="let topic of backendService.topics()">
+    <div class = "topic-grid" *ngIf="options().length > 0">
 
-      <div class = "topic-header">
+      <div class = "topic-card" *ngFor="let o of options()">
 
-        <h3 class = "topic-title">{{topic.name}}</h3>
+        <div class = "topic-header">
 
-        <p class = "topic-id"><strong>ID:</strong>{{topic.id}}</p>
+         <h3 class = "topic-title">{{o.name}}</h3>
 
+          <p class = "topic-id"><strong>ID:</strong>{{o.id}}</p>
+
+        </div>
       </div>
     </div>
-  </div>
+    <p *ngIf="options().length === 0"> No Values Available.</p>
 
-  <p *ngIf="backendService.topics().length === 0"> No Topics Available.</p>
 
 </mat-dialog-content>
 

@@ -35,7 +35,7 @@ export class BackendService {
       this.http.get<CourseDTO[]>('http://localhost:8081/courses/all')
       .subscribe({
         next:(data) => {
-          this.courses.set(data);
+          this.courses.set(data); //sets the data into the courses signal so we can access the stream of DTOs it's loaded with in other classes
         }
       });
     }
@@ -99,8 +99,24 @@ export class BackendService {
       });
     }
 
+    loadAllStudentsTakingATopic(topicId:number){
+      this.http.get<StudentDTO[]>(`http://localhost:8081/students/topics-students/${topicId}`).subscribe({
+        next:(data)=>{
+          this.students.set(data);
+        }
+      })
+    }
+
+    loadAllTeachersTeachingATopic(topicId:number){
+      this.http.get<TeacherDTO[]>(`http://localhost:8081/topics/topics-teachers/${topicId}`).subscribe({
+        next:(data)=>{
+          this.teachers.set(data);
+        }
+      })
+    }
+
     resetCourseList(){
-      this.courses.set([]);   // clear the signal
+      this.courses.set([]); // clear the signal
       }
 
     resetTopicList(){
@@ -109,6 +125,10 @@ export class BackendService {
 
     resetStudentList(){
       this.students.set([]);
+    }
+
+    resetTeacherList() {
+      this.teachers.set([]);
     }
 
 }

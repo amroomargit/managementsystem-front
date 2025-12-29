@@ -30,12 +30,14 @@ export class UpdateStudentPopup {
   password = '';
   firstName = '';
   lastName = '';
+  name = '';
   id!: number;
 
   ngOnInit() {
   this.id = this.data.id;
   this.firstName = this.data?.firstName ?? '';
   this.lastName = this.data?.lastName ?? '';
+  this.name = this.data?.name ?? '';
   }
 
 
@@ -127,13 +129,13 @@ export class UpdateStudentPopup {
 
   submitTopic(){
     const formValues = {
-      name:this.firstName
+      name:this.name
     }
     this.http.put(`http://localhost:8081/topics/update-topic-info/${this.id}`,formValues)
     .subscribe(
       (response)=>{
         this.newDialogReference.close({
-          name:this.firstName
+          name:this.name
         });
       },
       error =>{

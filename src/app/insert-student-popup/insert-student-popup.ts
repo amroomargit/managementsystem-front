@@ -48,6 +48,7 @@ export class InsertStudentPopup {
 
 
   courseName:string|null = null;
+  topicName: string|null = null;
   topicId: number|null = null;
   teacherId: number|null = null;
   selectedStartDate!: Date;
@@ -79,8 +80,12 @@ export class InsertStudentPopup {
     else if(this.data.action === "Insert Course"){
       this.submitNewCourse();
     }
-    this.submitUpdatedCourse(this.data.id);
-
+    else if(this.data.action === "Update Course"){
+      this.submitUpdatedCourse(this.data.id);
+    }
+    else if(this.data.action === "Insert Topic"){
+      this.submitNewTopic();
+    }
   }
 
   snackbarMessage(msg:string){
@@ -161,6 +166,20 @@ export class InsertStudentPopup {
         console.log(error);
        }
     });
+  }
+
+  submitNewTopic(){
+    const formValues = {
+      name:this.topicName
+    }
+    this.http.post('http://localhost:8081/topics/insert-topic',formValues).subscribe({
+      next:(response)=>{
+        this.newDialogReference.close({});
+      },
+      error: (error) => {
+        this.snackbarMessage(error.error?.message);
+      }
+    })
   }
 
   cancel(){

@@ -94,6 +94,7 @@ export class AllTeachers {
         action: "View Teachers Topics"
       }
     });
+    dialogRef.afterClosed().subscribe();
   }
 
   deleteTeacher(teacherId:number){

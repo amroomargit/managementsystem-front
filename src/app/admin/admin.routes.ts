@@ -4,6 +4,7 @@ import { AllTeachers } from './all-teachers/all-teachers';
 import { AllStudents } from './all-students/all-students';
 import { HomeComponent } from '../home-component/home-component';
 import { AllCourses } from './all-courses/all-courses';
+import { AllTopics } from './all-topics/all-topics';
 
 //ROUTING TABLE EXPLANATION...
 /*After having been redirected here, by having typed http://localhost:4200/admin, since after the
@@ -35,6 +36,10 @@ export const routes: Routes = [{
     {
       path:'all-courses',
       component:AllCourses
+    },
+    {
+      path:'all-topics',
+      component:AllTopics
     },
     {
       path: 'home',
