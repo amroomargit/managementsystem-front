@@ -74,7 +74,7 @@ export class InsertStudentPopup {
   }
 
   confirm(){
-    if(this.data.action === "Insert Student"){
+    if(this.data.action === "Insert Student" || this.data.action === "Insert Teacher"){
       this.submitNewStudent();
     }
     else if(this.data.action === "Insert Course"){

@@ -2,7 +2,7 @@
 
 <mat-dialog-content class = "popup-body">
 
-  <div *ngIf = "data.action === 'Insert Student' ">
+  <div *ngIf = "data.action === 'Insert Student' || data.action === 'Insert Teacher'">
     <mat-form-field apperance = "fill" class = "field">
       <mat-label>First Name:</mat-label>
       <input matInput [(ngModel)] = "firstName">

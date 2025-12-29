@@ -121,6 +121,7 @@ export class AllTeachers {
     const dialogRef = this.dialog.open(InsertStudentPopup,{
       width: '500px',
       data:{
+        title: 'Enter Info for the New Teacher',
         action:'Insert Teacher'
       }
     });
