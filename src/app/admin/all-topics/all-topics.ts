@@ -70,7 +70,7 @@ export class AllTopics {
             this.backendService.loadAllTopics();
           },
           error: err => {
-            this.snackbarMessage(err.error.message);
+            this.snackbarMessage(err.error?.message ?? 'Delete failed');
           }
         });
       };
