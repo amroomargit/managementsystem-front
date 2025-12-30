@@ -153,7 +153,7 @@ export class EnrollInCoursePopup {
     this.http.post(`http://localhost:8081/teachers/${this.data.teacherId}/topics/${this.selectedIdFromHTML}`,{})
     .subscribe(
       (response) => {
-        console.log("Console log: ",response);
+        console.log("Console log: ",this.data.teacherId);
         this.dialogReference.close({});
       },
       (error) => {

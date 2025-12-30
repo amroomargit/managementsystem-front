@@ -17,7 +17,7 @@
     <td>{{c.starttime}}</td>
     <td>{{c.endtime}}</td>
     <td>{{c.teacher.id}}</td>
-    <td>{{c.topic.name}}</td>
+    <td>{{c.topic?.name}}</td>
     <button (click) = updateCourse(c.id)>Update</button>
     &nbsp;|&nbsp;
     <button (click) = deleteCourse(c.id)>Delete</button>

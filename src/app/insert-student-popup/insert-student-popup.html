@@ -24,7 +24,19 @@
     </mat-form-field>
     </div>
 
-    <div *ngIf = "data.action === 'Insert Course' || data.action === 'Update Course' || data.action === 'Insert Topic'">
+
+
+    <div *ngIf = "data.action === 'Insert Topic'">
+
+        <mat-form-field apperance = "fill" class = "field">
+          <mat-label>Topic Name:</mat-label>
+          <input matInput [(ngModel)]="topicName">
+        </mat-form-field>
+    </div>
+
+
+
+    <div *ngIf = "data.action === 'Insert Course' || data.action === 'Update Course'">
 
       <div *ngIf = "data.action === 'Insert Course'">
 
@@ -75,6 +87,8 @@
       </mat-form-field>
       </div>
     </div>
+
+    
 
 </mat-dialog-content>
 

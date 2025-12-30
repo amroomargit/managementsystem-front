@@ -111,10 +111,10 @@ export class InsertStudentPopup {
 
     this.http.post(`${baseURL}${endpoint}`,formValues).subscribe({
     next: (response) => {
-      console.log("Entity Added.", response);
+      this.newDialogReference.close({});
     },
     error: (error) => {
-      console.log("Error:", error);
+      this.snackbarMessage(error.error?.message);
     }
   });
   }
