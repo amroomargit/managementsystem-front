@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClient } from '@angular/common/http';
 import { BackendService} from '../backend-service';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf, DatePipe } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { DialogRef } from '@angular/cdk/dialog';
@@ -25,7 +25,8 @@ import { DialogRef } from '@angular/cdk/dialog';
     NgFor,
     NgIf,
     MatSelectModule,
-    MatSnackBarModule],
+    MatSnackBarModule,
+    DatePipe],
   templateUrl: './grid-view-popup.html',
   styleUrl: './grid-view-popup.css',
 })

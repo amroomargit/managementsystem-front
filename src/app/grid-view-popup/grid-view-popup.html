@@ -12,7 +12,7 @@
 
       <p><strong>Topic:</strong> {{course.topic?.name}}</p>
 
-      <p><strong>Time:</strong> {{course.starttime}} - {{course.endtime}}</p>
+      <p><strong>Time:</strong> {{course.starttime | date:'yyyy-MM-dd HH:mm'}} - {{course.endtime | date: 'yyyy-MM-dd HH:mm'}}</p>
 
       <p><strong>Teacher:</strong> {{course.teacher.firstName}} {{course.teacher.lastName}}</p>
 

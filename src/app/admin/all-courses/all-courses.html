@@ -14,8 +14,8 @@
   <tr *ngFor = "let c of backendService.courses()">
     <td>{{c.id}}</td>
     <td>{{c.name}}</td>
-    <td>{{c.starttime}}</td>
-    <td>{{c.endtime}}</td>
+    <td>{{c.starttime | date: 'yyyy-MM-dd HH:mm'}}</td>
+    <td>{{c.endtime | date: 'yyyy-MM-dd HH:mm'}}</td>
     <td>{{c.teacher.id}}</td>
     <td>{{c.topic?.name}}</td>
     <button (click) = updateCourse(c.id)>Update</button>
