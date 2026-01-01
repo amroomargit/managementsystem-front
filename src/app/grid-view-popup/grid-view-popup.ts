@@ -57,6 +57,9 @@ export class GridViewPopup {
       case 'All Students in Course':
         this.backendService.loadAllStudentsInACourse(this.data.id);
         break;
+      case 'Print Certificate':
+        this.backendService.loadCertificateByCertificateId(this.data.id);
+        break;
       default:
         console.log("The switch-case in ngOnInit() in grid-view-popup.ts did not work properly.");
     }

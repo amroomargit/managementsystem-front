@@ -5,6 +5,7 @@ import { AllStudents } from './all-students/all-students';
 import { HomeComponent } from '../home-component/home-component';
 import { AllCourses } from './all-courses/all-courses';
 import { AllTopics } from './all-topics/all-topics';
+import { AllCertificates } from './all-certificates/all-certificates';
 
 //ROUTING TABLE EXPLANATION...
 /*After having been redirected here, by having typed http://localhost:4200/admin, since after the
@@ -44,6 +45,10 @@ export const routes: Routes = [{
     {
       path: 'home',
       component: HomeComponent
+    },
+    {
+      path: 'all-certificates',
+      component:AllCertificates
     },
     {
       path: '',

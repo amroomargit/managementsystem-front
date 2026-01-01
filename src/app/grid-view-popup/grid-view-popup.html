@@ -2,7 +2,7 @@
 
 <mat-dialog-content class = "popup-body">
 
-  <div *ngIf = "!(data.action === 'All Students in Course') && backendService.courses().length > 0" class = "course-grid">
+  <div *ngIf = "!(data.action === 'All Students in Course') && !(data.action === 'Print Certificate') && backendService.courses().length > 0" class = "course-grid">
 
     <div class = "course-card" *ngFor="let course of backendService.courses()">
 
@@ -30,6 +30,23 @@
       <p><strong>ID:</strong> {{student.id}}</p>
 
       <p *ngIf="backendService.students().length === 0"> No Students Available.</p>
+    </div>
+  </div>
+
+  <div *ngIf = "data.action === 'Print Certificate'" class = "course-grid">
+
+    <div class = "course-card" *ngFor="let certificate of backendService.certificates()">
+
+      <h3 class="course-title">{{certificate.student.firstName}} {{certificate.student.lastName}} has been hereby awarded
+        a {{certificate.certificateType}} Degree in {{certificate.course.name}}</h3>
+
+      <p><strong>Certificate ID:</strong> {{certificate.id}}</p>
+
+      <p><strong>Topic:</strong> {{certificate.course.topic.name}}</p>
+
+      <p><strong>Teacher:</strong> {{certificate.course.teacher.firstName}} {{certificate.course.teacher.lastName}}</p>
+
+
     </div>
   </div>
 

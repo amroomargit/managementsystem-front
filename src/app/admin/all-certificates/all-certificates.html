@@ -1,0 +1,32 @@
+<h2>All Certificates</h2>
+
+<table>
+  <tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Certificate ID</th>
+    <th>Type</th>
+    <th>Grade</th>
+    <th>Actions</th>
+  </tr>
+
+  <tr *ngFor = "let c of backendService.certificates()">
+    <td>{{c.student.firstName}}</td>
+    <td>{{c.student.lastName}}</td>
+    <td>{{c.id}}</td>
+    <td>{{c.certificateType}}</td>
+    <td>{{c.grade}}</td>
+    <td><button (click) = updateCertificate(c.id)>Update Certificate</button></td>
+    &nbsp;|&nbsp;
+    <td><button (click) = deleteCertificate(c.id)>Delete Certificate</button></td>
+    &nbsp;|&nbsp;
+    <td><button (click) = printCertificate(c.id)>Print Certificate</button></td>
+  </tr>
+</table>
+
+<button (click) = insertCertificate()>Insert New Certificate</button>
+
+<ng-template #noData>
+  <p>No certificates found in database</p>
+</ng-template>
+

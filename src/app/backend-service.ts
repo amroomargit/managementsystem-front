@@ -6,6 +6,7 @@ import { TeacherDTO } from './models/teacher-dto';
 import { TopicDTO } from './models/topic-dto';
 import { UserDTO } from './models/user-dto';
 import { D } from '@angular/cdk/keycodes';
+import { CertificateDTO } from './models/certificate-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,7 @@ export class BackendService {
   public teachers:WritableSignal<TeacherDTO[]> = signal([]);
   public topics:WritableSignal<TopicDTO[]> = signal([]);
   public user:WritableSignal<UserDTO | null> = signal(null);
+  public certificates:WritableSignal<CertificateDTO[]|null> = signal(null);
 
   private http = inject(HttpClient);
 
@@ -56,6 +58,15 @@ export class BackendService {
       next:(data) => {
         this.topics.set(data);
         console.log(data);
+      }
+    })
+  }
+
+  loadAllCertificates(){
+    this.http.get<CertificateDTO[]>(`http://localhost:8081/certificates/all`)
+    .subscribe({
+      next:(data)=>{
+        this.certificates.set(data);
       }
     })
   }
@@ -111,6 +122,14 @@ export class BackendService {
       this.http.get<TeacherDTO[]>(`http://localhost:8081/topics/topics-teachers/${topicId}`).subscribe({
         next:(data)=>{
           this.teachers.set(data);
+        }
+      })
+    }
+
+    loadCertificateByCertificateId(certificateId:number){
+      this.http.get<CertificateDTO[]>(`http://localhost:8081/certificates/print-certificate/${certificateId}`).subscribe({
+        next:(data)=>{
+          this.certificates.set(data);
         }
       })
     }
