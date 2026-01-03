@@ -2,8 +2,6 @@
 
 <div *ngIf = "user() as u">
 
-  <div *ngIf = "u.role === 'ROLE_ADMIN'">
-
     <table>
       <tr>
         <th>Username</th>
@@ -19,21 +17,6 @@
         <td> <button (click) = "updateUserProfile(u.id,u.firstName,u.lastName)">Update Profile</button> </td>
       </tr>
     </table>
-
-  </div>
-
-
-
-  <div *ngIf = "u.role === 'ROLE_STUDENT'">
-    <!--(change username functionality) + Student should be able to view the courses they're currently taking, and the topics they're taking-->
-  </div>
-
-
-
-  <div *ngIf = "u.role === 'ROLE_TEACHER'">
-    <!--(change username functionality) Teacher should be able to view the courses they're currently teacher, and the topics they're teaching-->
-  </div>
-
 
 
 </div>
