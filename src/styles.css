@@ -18,7 +18,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .app-title{
   font-size: 1.38rem;
-  font-weight: 500;        /* 👈 thinner */
+  font-weight: 500;
   letter-spacing: 0.55px;
   color: #880e4f;
 }
@@ -109,6 +109,85 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .ums-add-btn {
   margin-top: 16px;
+}
+
+
+/* =========================
+   UMS Login Page
+   ========================= */
+
+.ums-login-title {
+  margin: 48px 0 16px;
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 600;
+}
+
+.ums-login-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.ums-login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 32px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.ums-login-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.ums-login-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #880e4f;
+  margin-bottom: 6px;
+}
+
+.ums-login-field input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.ums-login-field input:focus {
+  outline: none;
+  border-color: #e91e63;
+  box-shadow: 0 0 0 2px rgba(233, 30, 99, 0.15);
+}
+
+/* Login button */
+.ums-login-btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #e91e63;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ums-login-btn:hover {
+  background: #d81b60;
+}
+
+/* Error message */
+.ums-login-error {
+  margin-top: 16px;
+  text-align: center;
+  color: #d32f2f;
+  font-size: 0.9rem;
 }
 
 

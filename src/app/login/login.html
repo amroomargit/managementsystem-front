@@ -1,17 +1,25 @@
-<h1>Login</h1>
+<h1 class="ums-login-title">Login</h1>
 
-<div>
-  <label>Username:</label>
-  <input [(ngModel)]="username"/>
-</div>
+<div class="ums-login-container">
 
-<div class = "password-box">
-  <div>
-    <label>Password:</label>
-    <input type ="password" [(ngModel)]="password"/>
+  <div class="ums-login-card">
+
+    <div class="ums-login-field">
+      <label>Username</label>
+      <input [(ngModel)]="username" />
+    </div>
+
+    <div class="ums-login-field">
+      <label>Password</label>
+      <input type="password" [(ngModel)]="password" />
+    </div>
+
+    <button class="ums-login-btn" (click)="login()">Log In</button>
+
+    <p class="ums-login-error" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </p>
+
   </div>
+
 </div>
-
-<button (click)="login()">Log In</button>
-
-<p style="color: red;">{{errorMessage}}</p>
