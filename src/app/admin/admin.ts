@@ -5,10 +5,17 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Popup } from '../popup/popup';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-admin',
-  imports: [RouterOutlet, RouterLinkWithHref],
+  imports: [RouterOutlet,
+    RouterLinkWithHref,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,],
   templateUrl: './admin.html',
   styleUrl: './admin.css',
 })

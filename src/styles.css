@@ -3,5 +3,114 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.toolbar {
+  padding: 0 24px;
+}
+
+.title {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.app-title{
+  font-size: 1.38rem;
+  font-weight: 500;        /* 👈 thinner */
+  letter-spacing: 0.55px;
+  color: #880e4f;
+}
+
+/* =========================
+   UMS Shared Table Styles
+   ========================= */
+
+.ums-page-title {
+  margin: 32px;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.ums-table-container {
+  margin: 0 32px;
+}
+
+.ums-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.ums-table th,
+.ums-table td {
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.ums-table thead {
+  background: #fde4ec; /* light pink tint */
+}
+
+.ums-table thead th {
+  color: #880e4f;      /* darker pink text */
+  font-weight: 600;
+}
+
+.ums-table tbody tr {
+  border-bottom: 1px solid #eee;
+}
+
+.ums-table tbody tr:hover {
+  background: #fafafa;
+}
+
+/* Actions column */
+.ums-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 420px;
+}
+
+/* Buttons */
+.ums-btn {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.ums-btn:hover {
+  background: #f0f0f0;
+}
+
+.ums-btn-primary {
+  background: #e91e63;
+  color: white;
+  border: none;
+}
+
+.ums-btn-primary:hover {
+  background: #d81b60;
+}
+
+
+.ums-btn-danger {
+  background: #d32f2f;
+  color: white;
+  border: none;
+}
+
+.ums-add-btn {
+  margin-top: 16px;
+}
+
+
 
 

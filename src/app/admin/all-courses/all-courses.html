@@ -1,33 +1,57 @@
-<h2 mat-dialog-title class="dialog-title">All Courses</h2>
+<h2 class="ums-page-title" mat-dialog-title>All Courses</h2>
 
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Start Time</th>
-    <th>End Time</th>
-    <th>Teacher</th>
-    <th>Topic</th>
-    <th>Actions</th>
-  </tr>
+<div class="ums-table-container"
+     *ngIf="backendService.courses().length; else noData">
 
-  <tr *ngFor = "let c of backendService.courses()">
-    <td>{{c.id}}</td>
-    <td>{{c.name}}</td>
-    <td>{{c.starttime | date: 'yyyy-MM-dd HH:mm'}}</td>
-    <td>{{c.endtime | date: 'yyyy-MM-dd HH:mm'}}</td>
-    <td>{{c.teacher.id}}</td>
-    <td>{{c.topic?.name}}</td>
-    <button (click) = updateCourse(c.id)>Update</button>
-    &nbsp;|&nbsp;
-    <button (click) = deleteCourse(c.id)>Delete</button>
-    &nbsp;|&nbsp;
-    <button (click) = seeStudentsInCourse(c.id)>Students in This Course</button>
+  <table class="ums-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Teacher</th>
+        <th>Topic</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
 
-  </tr>
-</table>
+    <tbody>
+      <tr *ngFor="let c of backendService.courses()">
+        <td>{{ c.id }}</td>
+        <td>{{ c.name }}</td>
+        <td>{{ c.starttime | date:'yyyy-MM-dd HH:mm' }}</td>
+        <td>{{ c.endtime | date:'yyyy-MM-dd HH:mm' }}</td>
+        <td>{{ c.teacher?.id }}</td>
+        <td>{{ c.topic?.name ?? '—' }}</td>
 
-<div class = "button-column">
-  <button (click) = insertCourse()>Insert a Course</button>
+        <td class="ums-actions">
+          <button class="ums-btn"
+                  (click)="updateCourse(c.id)">
+            Update
+          </button>
+
+          <button class="ums-btn ums-btn-danger"
+                  (click)="deleteCourse(c.id)">
+            Delete
+          </button>
+
+          <button class="ums-btn"
+                  (click)="seeStudentsInCourse(c.id)">
+            Students
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="ums-btn ums-btn-primary ums-add-btn"
+          (click)="insertCourse()">
+    + Insert Course
+  </button>
+
 </div>
 
+<ng-template #noData>
+  <p>No courses found</p>
+</ng-template>

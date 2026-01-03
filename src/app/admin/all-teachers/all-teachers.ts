@@ -11,10 +11,16 @@ import { BackendService } from '../../backend-service';
 import { SimplifiedGridViewPopup } from '../../simplified-grid-view-popup/simplified-grid-view-popup';
 import { Popup } from '../../popup/popup';
 import { InsertStudentPopup } from '../../insert-student-popup/insert-student-popup';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-all-teachers',
-  imports: [NgFor,NgIf,CommonModule],
+  imports: [NgFor,MatTableModule,
+  MatButtonModule,
+  MatIconModule,
+  NgIf,CommonModule],
   templateUrl: './all-teachers.html',
   styleUrl: './all-teachers.css',
 })

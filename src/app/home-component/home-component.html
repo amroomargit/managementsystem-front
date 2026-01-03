@@ -1,23 +1,37 @@
-<h1>Home</h1>
+<h1 class="page-title">Home</h1>
 
-<div *ngIf = "user() as u">
+<div *ngIf="user() as u" class="profile-container">
 
-    <table>
-      <tr>
-        <th>Username</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Actions</th>
-      </tr>
+  <mat-card class="profile-card">
+    <mat-card-title>User Profile</mat-card-title>
+    <mat-card-content>
 
-      <tr>
-        <td>{{u.username}}</td>
-        <td>{{u.firstName}}</td>
-        <td>{{u.lastName}}</td>
-        <td> <button (click) = "updateUserProfile(u.id,u.firstName,u.lastName)">Update Profile</button> </td>
-      </tr>
-    </table>
+      <div class="profile-field">
+        <span class="label">Username</span>
+        <span class="value">{{ u.username }}</span>
+      </div>
 
+      <div class="profile-field">
+        <span class="label">First Name</span>
+        <span class="value">{{ u.firstName }}</span>
+      </div>
+
+      <div class="profile-field">
+        <span class="label">Last Name</span>
+        <span class="value">{{ u.lastName }}</span>
+      </div>
+
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="updateUserProfile(u.id, u.firstName, u.lastName)"
+      >
+        Update Profile
+      </button>
+    </mat-card-actions>
+  </mat-card>
 
 </div>
-

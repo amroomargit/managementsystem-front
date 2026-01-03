@@ -1,12 +1,18 @@
 import { Routes } from '@angular/router';
 import { Teacher } from './teacher';
-import { AllCertificates } from './all-certificates/all-certificates';
+import { HomeComponent } from '../home-component/home-component';
 
 export const routes: Routes = [{
   path:'',
   component: Teacher,
   children: [{
-    path:'all-certificates',
-    component: AllCertificates
-  }]
-}]
+     path: 'home',
+     component: HomeComponent
+   },
+   {
+     path:'',
+     redirectTo:'home',
+     pathMatch:'full'
+   }
+ ]
+ }]

@@ -1,4 +1,10 @@
-<a routerLink="home">Home</a>
-|
-<button class="signout" (click)=signOut()>Sign-Out</button>
+<mat-toolbar color="primary" class="toolbar">
+
+<span class = "spacer"></span>
+
+<a mat-button routerLink="home">Home</a>
+
+<a mat-raised-button color="primary" routerLink="/login" class="signout" (click) = "signOut()">Sign-Out</a>
+
+  </mat-toolbar>
 <router-outlet>

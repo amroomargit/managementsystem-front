@@ -1,25 +1,54 @@
-<h2 mat-dialog-title class = "dialog-title">All Topics</h2>
+<h2 class="ums-page-title" mat-dialog-title>All Topics</h2>
 
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Topic</th>
-    <th>Actions</th>
-  </tr>
+<div class="ums-table-container"
+     *ngIf="backendService.topics().length; else noData">
 
-  <tr *ngFor = "let t of backendService.topics()">
-    <td>{{t.id}}</td>
-    <td>{{t.name}}</td>
-    <button (click) = updateTopic(t.id,t.name)>Update Topic</button>
-    &nbsp;|&nbsp;
-    <button (click) = deleteTopic(t.id)>Delete Topic</button>
-    &nbsp;|&nbsp;
-    <button (click) = getStudentsInTopic(t.id)>Students Taking This Topic</button>
-    &nbsp;|&nbsp;
-    <button (click) = getTeachersInTopic(t.id)>Teachers Teaching This Topic</button>
-  </tr>
-</table>
+  <table class="ums-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Topic</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
 
-<div class = "button-column">
-  <button (click) = insertTopic()> Insert a Topic</button>
+    <tbody>
+      <tr *ngFor="let t of backendService.topics()">
+        <td>{{ t.id }}</td>
+        <td>{{ t.name }}</td>
+
+        <td class="ums-actions">
+          <button class="ums-btn"
+                  (click)="updateTopic(t.id, t.name)">
+            Update
+          </button>
+
+          <button class="ums-btn ums-btn-danger"
+                  (click)="deleteTopic(t.id)">
+            Delete
+          </button>
+
+          <button class="ums-btn"
+                  (click)="getStudentsInTopic(t.id)">
+            Students
+          </button>
+
+          <button class="ums-btn"
+                  (click)="getTeachersInTopic(t.id)">
+            Teachers
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="ums-btn ums-btn-primary ums-add-btn"
+          (click)="insertTopic()">
+    + Insert Topic
+  </button>
+
 </div>
+
+<ng-template #noData>
+  <p>No topics found</p>
+</ng-template>

@@ -1,31 +1,56 @@
-<h2>All Students</h2>
+<h2 class="ums-page-title">All Students</h2>
 
-<table>
-  <tr>
-    <th>First Name</th>
-    <th>Last Name</th>
-    <th>ID</th>
-    <th>Actions</th>
-  </tr>
+<div class="ums-table-container"
+     *ngIf="backendService.students().length; else noData">
 
-  <tr *ngFor = "let s of backendService.students()">
-    <td>{{s.firstName}}</td>
-    <td>{{s.lastName}}</td>
-    <td>{{s.id}}</td>
-    <td> <button (click) = updateStudent(s.id,s.firstName,s.lastName)>Update</button> </td>
-    &nbsp;|&nbsp;
-    <td> <button (click) = deleteStudent(s.id)>Delete</button> </td>
-    &nbsp;|&nbsp;
-    <td> <button (click) = enrollInCourse(s.id)>Enroll In Course</button> </td>
-    &nbsp;|&nbsp;
-    <td> <button (click) = unenrollInCourse(s.id)>Unenroll In Course</button> </td>
-  </tr>
-</table>
+  <table class="ums-table">
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>ID</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
 
-<div class = "button-column">
-  <button (click) = insertStudent()>Insert New Student</button>
+    <tbody>
+      <tr *ngFor="let s of backendService.students()">
+        <td>{{ s.firstName }}</td>
+        <td>{{ s.lastName }}</td>
+        <td>{{ s.id }}</td>
+
+        <td class="ums-actions">
+          <button class="ums-btn"
+                  (click)="updateStudent(s.id, s.firstName, s.lastName)">
+            Update
+          </button>
+
+          <button class="ums-btn ums-btn-danger"
+                  (click)="deleteStudent(s.id)">
+            Delete
+          </button>
+
+          <button class="ums-btn"
+                  (click)="enrollInCourse(s.id)">
+            Enroll
+          </button>
+
+          <button class="ums-btn"
+                  (click)="unenrollInCourse(s.id)">
+            Unenroll
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="ums-btn ums-btn-primary ums-add-btn"
+          (click)="insertStudent()">
+    + Insert New Student
+  </button>
+
 </div>
 
 <ng-template #noData>
-  <p>No students found in database</p>
+  <p>No students found</p>
 </ng-template>

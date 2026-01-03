@@ -47,10 +47,6 @@ export const routes: Routes = [{
       component: HomeComponent
     },
     {
-      path: 'all-certificates',
-      component:AllCertificates
-    },
-    {
       path: '',
       redirectTo: 'home',
       pathMatch: 'full'

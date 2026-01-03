@@ -6,10 +6,15 @@ import { Auth } from '../auth';
 import { NgIf } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateStudentPopup } from '../update-student-popup/update-student-popup';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+
 
 @Component({
   selector: 'app-home-component',
-  imports: [NgIf],
+  imports: [ MatCardModule,
+    MatButtonModule,
+    NgIf],
   templateUrl: './home-component.html',
   styleUrl: './home-component.css',
 })

@@ -1,17 +1,15 @@
-<a routerLink ="home">Home</a>
-|
-<a routerLink="all-teachers">All Teachers</a>
-|
-<a routerLink="all-students">All Students</a>
-|
-<a routerLink = "all-courses">All Courses</a>
-|
-<a routerLink = "all-topics">All Topics</a>
-|
-<a routerLink = "all-certificates">All Certificates</a>
-|
-<a routerLink="/login" class="signout" (click) = "signOut()">Sign-Out</a>
+<mat-toolbar color="primary" class="toolbar">
 
+<span class = "spacer"></span>
 
+<a mat-button routerLink ="home">Home</a>
+<a mat-button routerLink="all-teachers">All Teachers</a>
+<a mat-button routerLink="all-students">All Students</a>
+<a mat-button routerLink = "all-courses">All Courses</a>
+<a mat-button routerLink = "all-topics">All Topics</a>
+
+<a mat-raised-button color="primary" routerLink="/login" class="signout" (click) = "signOut()">Sign-Out</a>
+
+</mat-toolbar>
 
 <router-outlet></router-outlet> <!-- for router-outlet to work, it has to be imported into admin.ts -->
